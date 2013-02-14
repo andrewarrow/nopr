@@ -10,13 +10,14 @@ server = web.createServer (request, response) ->
   method = []
   tokens = url_parts.pathname.split('/')
   response.writeHead 200, {'Content-Type': 'text/html'}
-  template = fs.readFileSync "#{__dirname}/../app/views/layouts/application.mustache"
-  #data = eco.render template.toString(), {user_id: FayeWeb.test_users[username], name: name, username: username}
-  output = Mustache.render(template.toString(), {name: 'wefwef'});
-  response.write output.toString()
+  layout = fs.readFileSync "#{__dirname}/../app/views/layouts/application.mustache"
+  template = fs.readFileSync "#{__dirname}/../app/views/home/index.mustache"
+  content = Mustache.render(template.toString(), {name: 'wefwef'});
+  output = Mustache.render(layout.toString(), {content: content});
+  response.write output
   response.end()
 
   #@response.writeHead 404, {'Content-Type': 'text/plain'}
   #@response.write "Not Found"
   #@response.end()
-server.listen 8000
+server.listen 3000
