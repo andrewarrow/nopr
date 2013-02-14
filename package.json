@@ -1,0 +1,14 @@
+{
+  "name": "nopr",
+  "author": "Andrew Arrow <oneone@gmail.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "coffee-script": "~1",
+    "mime": "~1.2",
+    "eco": "~1.1.0-rc-3",
+    "url": "~0.7.9"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.0.26"
+  }
+}
