@@ -1,4 +1,3 @@
-CoffeeScript  = require 'coffee-script'
 web           = require 'http'
 url           = require 'url'
 {Asset}       = require '../lib/server/asset'
