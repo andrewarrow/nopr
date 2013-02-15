@@ -2,6 +2,8 @@ CoffeeScript  = require 'coffee-script'
 fs            = require 'fs'
 Mustache      = require 'mustache'
 
+{HomeController} = require '../../app/controllers/home_controller'
+
 class exports.Path
   constructor: (tokens, @response) ->
     @root = tokens[1]
