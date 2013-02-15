@@ -1,11 +1,12 @@
 fs            = require 'fs'
 Mustache      = require 'mustache'
+{Config} = require '../../config/environments/development'
 
 class exports.ApplicationController
   constructor: (@response) ->
 
   filters: () ->
-    @template_json = {fb_app_id: 'wfwefwe'}
+    @template_json = {fb_app_id: Config.fb_app_id}
 
   render: () ->
     @response.writeHead 200, {'Content-Type': 'text/html'}

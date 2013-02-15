@@ -22,11 +22,14 @@ class exports.Path
       type = 'application/javascript'
       raw  = fs.readFileSync("#{__dirname}/../../app/assets/coffeescripts/#{@file}")
       data = CoffeeScript.compile raw.toString()
+    else if @ext == 'png'
+      type = 'image/png'
+      data = fs.readFileSync("#{__dirname}/../../app/assets/images/#{@file}")
     @render_file data, type
 
   render_file: (data, type) ->
     @response.writeHead 200, {'Content-Type': "#{type}"}
-    @response.write data.toString()
+    @response.write data
     @response.end()
 
   render: () ->

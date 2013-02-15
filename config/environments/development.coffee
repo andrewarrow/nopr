@@ -1,5 +1,5 @@
 class exports.Config
-  @fb_id: () ->
+  @fb_app_id: () ->
     '2'
   @fb_secret: () ->
     '1'
