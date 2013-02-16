@@ -5,8 +5,7 @@ url           = require 'url'
 
 server = web.createServer (request, response) ->
   url_parts = url.parse(request.url, true)
-  tokens = url_parts.pathname.split('/')
-  path = new Path(tokens, response)
+  path = new Path(url_parts.pathname, response)
   path.render()
 
   #@response.writeHead 404, {'Content-Type': 'text/plain'}

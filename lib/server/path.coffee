@@ -5,7 +5,8 @@ Mustache      = require 'mustache'
 {HomeController} = require '../../app/controllers/home_controller'
 
 class exports.Path
-  constructor: (tokens, @response) ->
+  constructor: (@pathname, @response) ->
+    tokens = @pathname.split('/')
     @root = tokens[1]
     @size = tokens.length
     @file = tokens[@size - 1]
@@ -41,19 +42,34 @@ class exports.Path
 
   render_coffee: () ->
     type = 'application/javascript'
-    data = ''
-    @render_file data, type
+    dir = "#{__dirname}/../../app/assets/coffeescripts"
+    files = fs.readdirSync dir
+    buffer = []
+    for file in files
+      raw = fs.readFileSync("#{dir}/#{file}")
+      data = CoffeeScript.compile raw.toString()
+      buffer.push data
+    dir = "#{__dirname}/../../client/controllers"
+    files = fs.readdirSync dir
+    for file in files
+      raw = fs.readFileSync("#{dir}/#{file}")
+      data = CoffeeScript.compile raw.toString()
+      buffer.push data
+    @render_file buffer.join('\n'), type
   render_js: () ->
     type = 'application/javascript'
-    data = fs.readFileSync("#{__dirname}/../../node_modules/mustache/#{@file}")
-    @render_file '', type
+    #data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
+    data = ''
+    @render_file data, type
   render_png: () ->
     type = 'image/png'
-    data = fs.readFileSync("#{__dirname}/../../app/assets/images/#{@file}")
+    data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
     @render_file data, type
   render_css: () ->
     type = 'text/css'
-    data = fs.readFileSync("#{__dirname}/../../app/assets/stylesheets/#{@file}")
+    #data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
+    #data = fs.readFileSync("#{__dirname}/../../app/assets/stylesheets/#{@file}")
+    data = ''
     @render_file data, type
   render_section: () ->
     raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
@@ -66,6 +82,7 @@ class exports.Path
     @response.end()
 
   render: () ->
+    console.log @pathname
     if @root == ''
       controller = new HomeController(@response)
       controller.index()
