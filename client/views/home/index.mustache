@@ -1,5 +1,5 @@
 {{#current_user}}
-  Welcome {{name}} <a href="#" id="logout" class="nopr-link">log out</a>
+  Welcome {{name}} <a href="#" data-vale="home/logout" class="nopr-link">log out</a>
   <div>
     Select a friend:
     <div id="friends">
@@ -8,5 +8,5 @@
   </div>
 {{/current_user}}
 {{^current_user}}
-  <a href="#" id="fb_connect" class="nopr-link"><img src="/assets/fb_connect.png"/></a>
+  <a href="#" data-value="home/fb_connect" class="nopr-link"><img src="/assets/fb_connect.png"/></a>
 {{/current_user}}
