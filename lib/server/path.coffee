@@ -40,6 +40,15 @@ class exports.Path
     @response.write data
     @response.end()
 
+  loop_dir: (path) ->
+    dir = "#{__dirname}/../../#{path}"
+    files = fs.readdirSync dir
+    buffer = []
+    for file in files
+      raw = fs.readFileSync("#{dir}/#{file}")
+      buffer.push raw.toString()
+    buffer.join('\n')
+
   render_coffee: () ->
     type = 'application/javascript'
     dir = "#{__dirname}/../../app/assets/coffeescripts"
@@ -58,19 +67,14 @@ class exports.Path
     @render_file buffer.join('\n'), type
   render_js: () ->
     type = 'application/javascript'
-    #data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
-    data = ''
-    @render_file data, type
+    @render_file @loop_dir('app/assets/javascripts'), type
   render_png: () ->
     type = 'image/png'
-    data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
+    data = fs.readFileSync("#{__dirname}/../../app/assets/images/#{@file}")
     @render_file data, type
   render_css: () ->
     type = 'text/css'
-    #data = fs.readFileSync("#{__dirname}/../..#{@pathname}")
-    #data = fs.readFileSync("#{__dirname}/../../app/assets/stylesheets/#{@file}")
-    data = ''
-    @render_file data, type
+    @render_file @loop_dir('app/assets/stylesheets'), type
   render_section: () ->
     raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
     index = raw.toString()
