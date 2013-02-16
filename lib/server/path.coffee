@@ -42,6 +42,10 @@ class exports.Path
   render: () ->
     if @root == 'assets' or @root == 'client' or @root == 'node_modules'
       @load_file()
+    else if @root == 'view'
+      @response.writeHead 200, {'Content-Type': "text/plain"}
+      @response.write 'wefwefwefwe wef ewfw efwe'
+      @response.end()
     else
       controller = new HomeController(@response)
       controller.index()

@@ -1,6 +1,13 @@
 class window.HomeController extends ApplicationController
-  constructor: (@e, @selector) ->
-    @e.preventDefault()
+  constructor: (@j, @selector) ->
+
+  index: () ->
+    json = {current_user: null}
+    success = (text) =>
+      console.log text
+      @j(@selector).html Mustache.render(text, json)
+
+    @j.ajax '/view', {type: 'GET', success: success}
 
   fb_connect: () ->
     FacebookHelper.connect () =>
