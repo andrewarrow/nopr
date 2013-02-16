@@ -39,18 +39,36 @@ class exports.Path
     @response.write data
     @response.end()
 
+  render_coffee: () ->
+    type = 'application/javascript'
+    data = ''
+    @render_file data, type
+  render_js: () ->
+    type = 'application/javascript'
+    data = fs.readFileSync("#{__dirname}/../../node_modules/mustache/#{@file}")
+    @render_file '', type
+  render_png: () ->
+    type = 'image/png'
+    data = fs.readFileSync("#{__dirname}/../../app/assets/images/#{@file}")
+    @render_file data, type
+  render_css: () ->
+    type = 'text/css'
+    data = fs.readFileSync("#{__dirname}/../../app/assets/stylesheets/#{@file}")
+    @render_file data, type
+  render_section: () ->
+    raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
+    index = raw.toString()
+    raw = fs.readFileSync("#{__dirname}/../../client/views/home/_friends.mustache")
+    friends = raw.toString()
+    @response.writeHead 200, {'Content-Type': "application/javascript"}
+    @response.write "Foo = {}; Foo.index = #{JSON.stringify(index)};"
+    @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
+    @response.end()
+
   render: () ->
-    if @root == 'assets' or @root == 'client' or @root == 'node_modules'
-      @load_file()
-    else if @root == 'section1'
-      raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
-      index = raw.toString()
-      raw = fs.readFileSync("#{__dirname}/../../client/views/home/_friends.mustache")
-      friends = raw.toString()
-      @response.writeHead 200, {'Content-Type': "application/javascript"}
-      @response.write "Foo = {}; Foo.index = #{JSON.stringify(index)};"
-      @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
-      @response.end()
-    else
+    if @root == ''
       controller = new HomeController(@response)
       controller.index()
+      return
+    if @["render_#{@ext}"]?
+      @["render_#{@ext}"]()

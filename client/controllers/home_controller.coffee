@@ -13,7 +13,7 @@ class window.HomeController extends ApplicationController
           @friends = friends.data.slice(0, 20)
           @j('#friends').html Mustache.render(Foo.partials.friends, {friends: @friends})
 
-    @j.getScript '/section1', success
+    @j.getScript '/section1.section', success
 
   fb_connect: (e) ->
     e.preventDefault()
