@@ -15,6 +15,11 @@ class window.HomeController extends ApplicationController
 
     @j.getScript '/section1.section', success
 
+  select_friend: (e) ->
+    e.preventDefault()
+    id = @j(e.target).attr('data-value')
+    @j(@selector).html 'hi '+id
+
   fb_connect: (e) ->
     e.preventDefault()
     FacebookHelper.connect () =>
