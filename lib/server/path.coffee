@@ -29,6 +29,9 @@ class exports.Path
     else if @ext == 'png'
       type = 'image/png'
       data = fs.readFileSync("#{__dirname}/../../app/assets/images/#{@file}")
+    else if @ext == 'js'
+      type = 'application/javascript'
+      data = fs.readFileSync("#{__dirname}/../../node_modules/mustache/#{@file}")
     @render_file data, type
 
   render_file: (data, type) ->
@@ -37,7 +40,7 @@ class exports.Path
     @response.end()
 
   render: () ->
-    if @root == 'assets' or @root == 'client'
+    if @root == 'assets' or @root == 'client' or @root == 'node_modules'
       @load_file()
     else
       controller = new HomeController(@response)

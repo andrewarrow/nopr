@@ -6,7 +6,11 @@ class window.HomeController extends ApplicationController
     FacebookHelper.connect () =>
       FB.api '/me', (resp) =>
         if resp.id?
-          @selector.html(resp.name + ' <a href="#" id="logout">log out</a>')
+          json = {name: resp.name}
+          template = 'Welcome {{name}} <a href="#" id="logout">log out</a>'
+          @selector.html Mustache.render(template, json)
 
   logout: () ->
-    @selector.html('<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>')
+    json = {}
+    template = '<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>'
+    @selector.html Mustache.render(template, json)
