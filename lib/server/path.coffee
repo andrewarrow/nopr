@@ -44,11 +44,12 @@ class exports.Path
       @load_file()
     else if @root == 'section1'
       raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
-      foo = raw.toString()
-      #json = {index: raw.toString(), partials: []}
-      json = {index: foo, partials: []}
+      index = raw.toString()
+      raw = fs.readFileSync("#{__dirname}/../../client/views/home/_friends.mustache")
+      friends = raw.toString()
       @response.writeHead 200, {'Content-Type': "application/javascript"}
-      @response.write "Foo = {}; Foo.bar = #{JSON.stringify(foo)};"
+      @response.write "Foo = {}; Foo.index = #{JSON.stringify(index)};"
+      @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
       @response.end()
     else
       controller = new HomeController(@response)

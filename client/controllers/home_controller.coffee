@@ -6,12 +6,12 @@ class window.HomeController extends ApplicationController
   index: () ->
     json = {current_user: @current_user}
     success = () =>
-      @j(@selector).html Mustache.render(Foo.bar, json)
+      @j(@selector).html Mustache.render(Foo.index, json)
 
       if @current_user
         FB.api '/me/friends', (friends) =>
           @friends = friends.data.slice(0, 20)
-          @j('#friends').html('wefwe')
+          @j('#friends').html Mustache.render(Foo.partials.friends, {friends: @friends})
 
     @j.getScript '/section1', success
 
