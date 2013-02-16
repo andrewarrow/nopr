@@ -12,6 +12,7 @@ class exports.Path
     @file = tokens[@size - 1]
     parts = @file.split('.')
     @ext = parts[parts.length-1]
+    @without_ext = parts[0]
 
   load_file: () ->
     type = undefined
@@ -86,6 +87,24 @@ class exports.Path
     friends = raw.toString()
     @response.writeHead 200, {'Content-Type': "application/javascript"}
     @response.write "Foo = {}; Foo.index = #{JSON.stringify(index)};"
+    @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
+    @response.end()
+  render_controller: () ->
+    dir = "#{__dirname}/../../client/views/#{controller}"
+    files = fs.readdirSync dir
+    buffer = []
+    buffer.push "window.router.views.#{@without_ext} = {}"
+    for file in files
+      raw = fs.readFileSync("#{dir}/#{file}")
+      view_str = raw.toString()
+      view = file.split('.')[0]
+      buffer.push "window.router.views.#{@without_ext}.#{view} = #{JSON.stringify(view_str)};"
+
+    raw = fs.readFileSync("#{dir}/../controllers/#{@without_ext}_controller.coffee")
+    data = CoffeeScript.compile raw.toString()
+
+    @response.writeHead 200, {'Content-Type': "application/javascript"}
+    @response.write "window.router.views[] = #{JSON.stringify(index)};"
     @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
     @response.end()
 
