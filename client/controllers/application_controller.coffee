@@ -1,0 +1,2 @@
+class window.ApplicationController
+  foo: () ->

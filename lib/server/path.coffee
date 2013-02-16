@@ -20,7 +20,11 @@ class exports.Path
       data = fs.readFileSync("#{__dirname}/../../app/assets/stylesheets/#{@file}")
     else if @ext == 'coffee'
       type = 'application/javascript'
-      raw  = fs.readFileSync("#{__dirname}/../../app/assets/coffeescripts/#{@file}")
+      raw = ''
+      if @root == 'assets'
+        raw = fs.readFileSync("#{__dirname}/../../app/assets/coffeescripts/#{@file}")
+      else
+        raw = fs.readFileSync("#{__dirname}/../../client/controllers/#{@file}")
       data = CoffeeScript.compile raw.toString()
     else if @ext == 'png'
       type = 'image/png'
@@ -33,7 +37,7 @@ class exports.Path
     @response.end()
 
   render: () ->
-    if @root == 'assets'
+    if @root == 'assets' or @root == 'client'
       @load_file()
     else
       controller = new HomeController(@response)

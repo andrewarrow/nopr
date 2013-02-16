@@ -1,12 +1,8 @@
 $ ->
-  $('#fb_connect').click (e) ->
-    e.preventDefault()
-    FacebookHelper.connect () ->
-      FB.api '/me', (resp) ->
-        if resp.id?
-          $('#main').html(resp.name + ' <a href="#" id="logout">log out</a>')
+  $('#home').on 'click', 'a#fb_connect', (e) ->
+    hc = new HomeController(e, $('#home'))
+    hc.fb_connect()
 
-
-  $('#main').on 'click', 'a#logout', (e) ->
+  $('#home').on 'click', 'a#logout', (e) ->
     e.preventDefault()
-    $('#main').html('<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>')
+    $('#home').html('<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>')
