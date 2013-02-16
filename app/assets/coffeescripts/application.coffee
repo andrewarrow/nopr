@@ -3,7 +3,7 @@ find_id = (e) ->
   c = $(e.currentTarget).attr('id')
   return t if t
   return c
-
+      
 $ ->
   hc = new HomeController($, '#home')
   hc.index()
