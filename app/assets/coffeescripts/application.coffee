@@ -3,9 +3,7 @@ $ ->
   hc.index()
 
   $('#home').on 'click', 'a#fb_connect', (e) ->
-    #hc = new HomeController(e, $('#home'))
-    #hc.fb_connect()
+    hc.fb_connect(e)
 
   $('#home').on 'click', 'a#logout', (e) ->
-    #hc = new HomeController(e, $('#home'))
-    #hc.logout()
+    hc.logout(e)

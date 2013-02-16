@@ -1,23 +1,23 @@
 class window.HomeController extends ApplicationController
   constructor: (@j, @selector) ->
+    @current_user = null
 
   index: () ->
-    json = {current_user: null}
+    json = {current_user: @current_user}
     success = (text) =>
-      console.log text
       @j(@selector).html Mustache.render(text, json)
 
     @j.ajax '/view', {type: 'GET', success: success}
 
-  fb_connect: () ->
+  fb_connect: (e) ->
+    e.preventDefault()
     FacebookHelper.connect () =>
       FB.api '/me', (resp) =>
         if resp.id?
-          json = {name: resp.name}
-          template = 'Welcome {{name}} <a href="#" id="logout">log out</a>'
-          @selector.html Mustache.render(template, json)
+          @current_user = {name: resp.name}
+          @index()
 
-  logout: () ->
-    json = {}
-    template = '<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>'
-    @selector.html Mustache.render(template, json)
+  logout: (e) ->
+    e.preventDefault()
+    @current_user = null
+    @index()
