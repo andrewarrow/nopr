@@ -8,3 +8,5 @@ class window.HomeController extends ApplicationController
         if resp.id?
           @selector.html(resp.name + ' <a href="#" id="logout">log out</a>')
 
+  logout: () ->
+    @selector.html('<a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>')
