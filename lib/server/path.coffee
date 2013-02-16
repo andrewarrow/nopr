@@ -55,13 +55,17 @@ class exports.Path
     files = fs.readdirSync dir
     buffer = []
     for file in files
-      raw = fs.readFileSync("#{dir}/#{file}")
-      data = CoffeeScript.compile raw.toString()
-      buffer.push data
+      if file.indexOf('.swp') == -1
+        raw = fs.readFileSync("#{dir}/#{file}")
+        console.log 'fred', 1, file
+        data = CoffeeScript.compile raw.toString()
+        buffer.push data
     raw = fs.readFileSync("#{__dirname}/../../client/controllers/application_controller.coffee")
+    console.log 'fred', 2
     data = CoffeeScript.compile raw.toString()
     buffer.push data
     raw = fs.readFileSync("#{__dirname}/../../client/controllers/home_controller.coffee")
+    console.log 'fred', 3
     data = CoffeeScript.compile raw.toString()
     buffer.push data
     @render_file buffer.join('\n'), type
