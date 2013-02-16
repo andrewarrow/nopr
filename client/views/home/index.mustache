@@ -2,11 +2,9 @@
   Welcome {{name}} <a href="#" id="logout">log out</a>
   <div>
     Select a friend:
-    {{#friends}}
-      <div>
-        {{name}}
-      </div>
-    {{/friends}}
+    <div id="friends">
+    Loading...
+    </div>
   </div>
 {{/current_user}}
 {{^current_user}}

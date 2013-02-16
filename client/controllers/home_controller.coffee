@@ -4,11 +4,16 @@ class window.HomeController extends ApplicationController
     @friends = []
 
   index: () ->
-    json = {current_user: @current_user, friends: @friends}
-    success = (text) =>
-      @j(@selector).html Mustache.render(text, json)
+    json = {current_user: @current_user}
+    success = (views) =>
+      @j(@selector).html Mustache.render(views.index, json)
 
-    @j.ajax '/view', {type: 'GET', success: success}
+      if @current_user
+        FB.api '/me/friends', (friends) =>
+          @friends = friends.data.slice(0, 20)
+          @j('#friends').html('wefwe')
+
+    @j.ajax '/views', {type: 'GET', success: success}
 
   fb_connect: (e) ->
     e.preventDefault()
@@ -16,9 +21,7 @@ class window.HomeController extends ApplicationController
       FB.api '/me', (me) =>
         if me.id?
           @current_user = {name: me.name}
-          FB.api '/me/friends', (friends) =>
-            @friends = friends.data
-            @index()
+          @index()
 
   logout: (e) ->
     e.preventDefault()

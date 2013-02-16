@@ -42,10 +42,11 @@ class exports.Path
   render: () ->
     if @root == 'assets' or @root == 'client' or @root == 'node_modules'
       @load_file()
-    else if @root == 'view'
+    else if @root == 'views'
       raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
-      @response.writeHead 200, {'Content-Type': "text/plain"}
-      @response.write raw
+      json = {index: raw.toString(), partials: []}
+      @response.writeHead 200, {'Content-Type': "application/json"}
+      @response.write JSON.stringify(json)
       @response.end()
     else
       controller = new HomeController(@response)
