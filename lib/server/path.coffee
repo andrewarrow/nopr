@@ -58,12 +58,12 @@ class exports.Path
       raw = fs.readFileSync("#{dir}/#{file}")
       data = CoffeeScript.compile raw.toString()
       buffer.push data
-    dir = "#{__dirname}/../../client/controllers"
-    files = fs.readdirSync dir
-    for file in files
-      raw = fs.readFileSync("#{dir}/#{file}")
-      data = CoffeeScript.compile raw.toString()
-      buffer.push data
+    raw = fs.readFileSync("#{__dirname}/../../client/controllers/application_controller.coffee")
+    data = CoffeeScript.compile raw.toString()
+    buffer.push data
+    raw = fs.readFileSync("#{__dirname}/../../client/controllers/home_controller.coffee")
+    data = CoffeeScript.compile raw.toString()
+    buffer.push data
     @render_file buffer.join('\n'), type
   render_js: () ->
     type = 'application/javascript'
