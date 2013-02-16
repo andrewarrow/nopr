@@ -1,5 +1,13 @@
 {{#current_user}}
   Welcome {{name}} <a href="#" id="logout">log out</a>
+  <div>
+    Select a friend:
+    {{#friends}}
+      <div>
+        {{name}}
+      </div>
+    {{/friends}}
+  </div>
 {{/current_user}}
 {{^current_user}}
   <a href="#" id="fb_connect"><img src="/assets/fb_connect.png"/></a>
