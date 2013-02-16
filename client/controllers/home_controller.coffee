@@ -5,15 +5,15 @@ class window.HomeController extends ApplicationController
 
   index: () ->
     json = {current_user: @current_user}
-    success = (views) =>
-      @j(@selector).html Mustache.render(views.index, json)
+    success = () =>
+      @j(@selector).html Mustache.render(Foo.bar, json)
 
       if @current_user
         FB.api '/me/friends', (friends) =>
           @friends = friends.data.slice(0, 20)
           @j('#friends').html('wefwe')
 
-    @j.ajax '/views', {type: 'GET', success: success}
+    @j.getScript '/section1', success
 
   fb_connect: (e) ->
     e.preventDefault()

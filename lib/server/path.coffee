@@ -42,11 +42,13 @@ class exports.Path
   render: () ->
     if @root == 'assets' or @root == 'client' or @root == 'node_modules'
       @load_file()
-    else if @root == 'views'
+    else if @root == 'section1'
       raw = fs.readFileSync("#{__dirname}/../../client/views/home/index.mustache")
-      json = {index: raw.toString(), partials: []}
-      @response.writeHead 200, {'Content-Type': "application/json"}
-      @response.write JSON.stringify(json)
+      foo = raw.toString()
+      #json = {index: raw.toString(), partials: []}
+      json = {index: foo, partials: []}
+      @response.writeHead 200, {'Content-Type': "application/javascript"}
+      @response.write "Foo = {}; Foo.bar = #{JSON.stringify(foo)};"
       @response.end()
     else
       controller = new HomeController(@response)
