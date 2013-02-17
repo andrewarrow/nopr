@@ -24,6 +24,6 @@ $ ->
       controller[action](e)
     else
       $.getScript "/#{controller_name}.controller", () ->
-        window.router.controller.friend = new FriendController($, '#home')
+        window.router.controllers.friend = new FriendController($, '#home')
         controller = window.router.controllers[controller_name]
         controller[action](e)

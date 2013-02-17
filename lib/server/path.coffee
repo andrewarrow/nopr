@@ -90,7 +90,7 @@ class exports.Path
     @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
     @response.end()
   render_controller: () ->
-    dir = "#{__dirname}/../../client/views/#{controller}"
+    dir = "#{__dirname}/../../client/views/#{@without_ext}"
     files = fs.readdirSync dir
     buffer = []
     buffer.push "window.router.views.#{@without_ext} = {}"
@@ -100,12 +100,12 @@ class exports.Path
       view = file.split('.')[0]
       buffer.push "window.router.views.#{@without_ext}.#{view} = #{JSON.stringify(view_str)};"
 
-    raw = fs.readFileSync("#{dir}/../controllers/#{@without_ext}_controller.coffee")
+    raw = fs.readFileSync("#{__dirname}/../../client/controllers/#{@without_ext}_controller.coffee")
     data = CoffeeScript.compile raw.toString()
+    buffer.push data
 
     @response.writeHead 200, {'Content-Type': "application/javascript"}
-    @response.write "window.router.views[] = #{JSON.stringify(index)};"
-    @response.write "Foo.partials = {}; Foo.partials.friends = #{JSON.stringify(friends)};"
+    @response.write buffer.join('\n')
     @response.end()
 
   render: () ->
