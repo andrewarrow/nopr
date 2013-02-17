@@ -1,7 +1,7 @@
 class window.Router
   constructor: () ->
     @controllers = {}
-    @controllers.home = new HomeController($, '#home')
+    @controllers.home = new HomeController($)
     @views = {}
 
   find_route: (e) ->
@@ -14,7 +14,8 @@ $ ->
   window.router = new Router()
   window.router.controllers.home.index()
 
-  $('#home').on 'click', 'a.nopr-link', (e) ->
+  $('#nopr').on 'click', 'a.nopr-link', (e) ->
+    e.preventDefault()
     tokens = window.router.find_route(e).split('/')
     controller_name = tokens[0]
     action = tokens[1]
@@ -24,6 +25,6 @@ $ ->
       controller[action](e)
     else
       $.getScript "/#{controller_name}.controller", () ->
-        window.router.controllers.friend = new FriendController($, '#home')
+        window.router.controllers.friend = new FriendController($)
         controller = window.router.controllers[controller_name]
         controller[action](e)

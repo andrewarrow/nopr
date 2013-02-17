@@ -1,6 +1,7 @@
 class window.FriendController extends ApplicationController
-  constructor: (@j, @selector) ->
+  constructor: (@j) ->
 
   index: () ->
-    @j(@selector).html 'wefwefwefwe'
+    json = {}
+    @j('#nopr').html Mustache.render(window.router.views.friend.index, json)
 
