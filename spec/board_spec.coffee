@@ -10,14 +10,15 @@ describe 'server', ->
       done()
   afterEach (done) ->
     done()
-  it 'should be in state playing', (done) ->
-      expect(board.state).toEqual('playing')
-      done()
   it 'should find all moves for current player', (done) ->
       there = false
       board.find_moves (res) ->
         there = _.contains res, [{fr: 0, fc: 1, tr: 1, tc: 1 }]
       expect(there).toEqual(true)
       done()
+  ###
   it 'should be in state finished', (done) ->
+      done()
+  it 'should be in state playing', (done) ->
+      expect(board.state).toEqual('playing')
       done()
