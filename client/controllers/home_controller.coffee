@@ -29,3 +29,5 @@ class window.HomeController extends ApplicationController
   logout: () ->
     @current_user = null
     @index()
+
+window.router.controllers.home = new HomeController($)

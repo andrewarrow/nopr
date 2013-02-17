@@ -1,7 +1,6 @@
 class window.Router
   constructor: () ->
     @controllers = {}
-    @controllers.home = new HomeController($)
     @views = {}
 
   find_route: (e) ->
@@ -10,8 +9,9 @@ class window.Router
     return t if t
     return c
       
+window.router = new Router()
+
 $ ->
-  window.router = new Router()
   window.router.controllers.home.index()
 
   $('#nopr').on 'click', 'a.nopr-link', (e) ->
