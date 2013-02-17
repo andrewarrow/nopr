@@ -1,3 +1,5 @@
+{Pawn} = require './../src/pawn'
+
 class exports.Board
   constructor: () ->
     @rows = [
@@ -12,8 +14,15 @@ class exports.Board
 
     @state = 'playing'
     @player = 'w'
+    @p = {}
 
   init: (done) ->
+    @p['r'] = new Pawn(@)
+    @p['h'] = new Pawn(@)
+    @p['b'] = new Pawn(@)
+    @p['k'] = new Pawn(@)
+    @p['q'] = new Pawn(@)
+    @p['p'] = new Pawn(@)
     done()
 
   look_n: (i, j, done) ->
@@ -26,35 +35,6 @@ class exports.Board
   look_nw: (i, j, done) ->
     done({sq: '', i: i+1, j: j})
 
-  move_as_r: (i, j, done) ->
-    done([])
-  move_as_h: (i, j, done) ->
-    done([])
-  move_as_b: (i, j, done) ->
-    done([])
-  move_as_k: (i, j, done) ->
-    done([])
-  move_as_q: (i, j, done) ->
-    done([])
-  move_as_p: (i, j, done) ->
-    options = []
-    @look_n i, j, (cord) =>
-      console.log cord, 'n'
-      if cord.sq == ''
-        options.push [cord.i,cord.j]
-      done(options)
-      ###
-      @look_ne i, j, (cord) =>
-        if cord.sq != ''
-          console.log cord, 'ne'
-          options.push [cord.i,cord.j]
-        @look_nw i, j, (cord) ->
-          if cord.sq != ''
-            console.log cord, 'nw'
-            options.push [cord.i,cord.j]
-          done(options)
-      ###
-
   consider_sq: (i, j, sq, done) ->
     options = []
     color = sq[0]
@@ -64,7 +44,7 @@ class exports.Board
        done([])
        return
      else
-      @["move_as_#{type}"] i, j, (options) ->
+      @p[type].all_moves i, j, (options) ->
         console.log i, j, color, type, options
         done(options)
         return
