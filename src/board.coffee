@@ -17,25 +17,25 @@ class exports.Board
     @p = {}
 
   init: (done) ->
-    @p['r'] = new Pawn(@)
-    @p['h'] = new Pawn(@)
-    @p['b'] = new Pawn(@)
-    @p['k'] = new Pawn(@)
-    @p['q'] = new Pawn(@)
-    @p['p'] = new Pawn(@)
+    @p['r'] = new Pawn(@, false)
+    @p['h'] = new Pawn(@, false)
+    @p['b'] = new Pawn(@, false)
+    @p['k'] = new Pawn(@, false)
+    @p['q'] = new Pawn(@, false)
+    @p['p'] = new Pawn(@, true)
     done()
 
-  look_n: (i, j, done) ->
+  look_n: (i, j, far, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j], i: i-1, j: j})
     else
       done({sq: @rows[i+1][j], i: i+1, j: j})
-  look_ne: (i, j, done) ->
+  look_ne: (i, j, far, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j+1], i: i-1, j: j+1})
     else
       done({sq: @rows[i+1][j-1], i: i+1, j: j-1})
-  look_nw: (i, j, done) ->
+  look_nw: (i, j, far, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j-1], i: i-1, j: j-1})
     else
