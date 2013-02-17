@@ -16,6 +16,17 @@ class exports.Board
   init: (done) ->
     done()
 
+  look_n: (i, j) ->
+    if @player == 'w'
+      @rows[i-1][j]
+    else
+      @rows[i+1][j]
+
+  look_ne: (i, j) ->
+    ''
+  look_nw: (i, j) ->
+    ''
+
   move_as_r: (i, j, done) ->
     done([])
   move_as_h: (i, j, done) ->
@@ -27,6 +38,9 @@ class exports.Board
   move_as_q: (i, j, done) ->
     done([])
   move_as_p: (i, j, done) ->
+    sq=@look_n(i, j)
+    sq=@look_ne(i, j)
+    sq=@look_nw(i, j)
     done([])
 
   consider_sq: (i, j, sq, done) ->
