@@ -20,7 +20,6 @@ class exports.Board
     if @player == 'w'
       done({sq: @rows[i-1][j], i: i-1, j: j})
     else
-      @rows[i+1][j]
       done({sq: @rows[i+1][j], i: i+1, j: j})
   look_ne: (i, j, done) ->
     done({sq: '', i: i+1, j: j})
@@ -40,15 +39,21 @@ class exports.Board
   move_as_p: (i, j, done) ->
     options = []
     @look_n i, j, (cord) =>
+      console.log cord, 'n'
       if cord.sq == ''
         options.push [cord.i,cord.j]
+      done(options)
+      ###
       @look_ne i, j, (cord) =>
-        if cord.sq == ''
+        if cord.sq != ''
+          console.log cord, 'ne'
           options.push [cord.i,cord.j]
         @look_nw i, j, (cord) ->
-          if cord.sq == ''
+          if cord.sq != ''
+            console.log cord, 'nw'
             options.push [cord.i,cord.j]
           done(options)
+      ###
 
   consider_sq: (i, j, sq, done) ->
     options = []
@@ -68,11 +73,11 @@ class exports.Board
   white_peices: (done) ->
     i = 0
     for row in @rows
-      i++
       j = 0
       for sq in row
-        j++
         @consider_sq i, j, sq, (options) ->
+        j++
+      i++
 
     done('')
 
