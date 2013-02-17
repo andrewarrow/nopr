@@ -16,16 +16,16 @@ class exports.Board
   init: (done) ->
     done()
 
-  look_n: (i, j) ->
+  look_n: (i, j, done) ->
     if @player == 'w'
-      @rows[i-1][j]
+      done({sq: @rows[i-1][j], i: i-1, j: j})
     else
       @rows[i+1][j]
-
-  look_ne: (i, j) ->
-    ''
-  look_nw: (i, j) ->
-    ''
+      done({sq: @rows[i+1][j], i: i+1, j: j})
+  look_ne: (i, j, done) ->
+    done({sq: '', i: i+1, j: j})
+  look_nw: (i, j, done) ->
+    done({sq: '', i: i+1, j: j})
 
   move_as_r: (i, j, done) ->
     done([])
@@ -38,10 +38,17 @@ class exports.Board
   move_as_q: (i, j, done) ->
     done([])
   move_as_p: (i, j, done) ->
-    sq=@look_n(i, j)
-    sq=@look_ne(i, j)
-    sq=@look_nw(i, j)
-    done([])
+    options = []
+    @look_n i, j, (cord) =>
+      if cord.sq == ''
+        options.push [cord.i,cord.j]
+      @look_ne i, j, (cord) =>
+        if cord.sq == ''
+          options.push [cord.i,cord.j]
+        @look_nw i, j, (cord) ->
+          if cord.sq == ''
+            options.push [cord.i,cord.j]
+          done(options)
 
   consider_sq: (i, j, sq, done) ->
     options = []
