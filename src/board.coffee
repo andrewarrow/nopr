@@ -11,23 +11,43 @@ class exports.Board
       ['wr','wh','wb','wq','wk','wb','wh','wr']]
 
     @state = 'playing'
-    @player = 'white'
+    @player = 'w'
 
   init: (done) ->
     done()
 
+  move_as_r: (done) ->
+    done([])
+  move_as_h: (done) ->
+    done([])
+  move_as_b: (done) ->
+    done([])
+  move_as_k: (done) ->
+    done([])
+  move_as_q: (done) ->
+    done([])
+  move_as_p: (done) ->
+    done([])
+
   consider_sq: (sq, done) ->
     options = []
-    if sq != ''
-      options.push [1,2,3]
-    done(options)
+    color = sq[0]
+    type = sq[1]
+    
+    if color == undefined or color != @player
+      done([])
+      return
+     else
+      @["move_as_#{type}"] (options) ->
+        console.log color, type, options
+        done(options)
+        return
+
 
   white_peices: (done) ->
     for row in @rows
-      console.log '  fred', row
       for sq in row
         @consider_sq sq, (options) ->
-          console.log 'fred', options
 
     done('')
 
