@@ -16,38 +16,42 @@ class exports.Board
   init: (done) ->
     done()
 
-  move_as_r: (done) ->
+  move_as_r: (i, j, done) ->
     done([])
-  move_as_h: (done) ->
+  move_as_h: (i, j, done) ->
     done([])
-  move_as_b: (done) ->
+  move_as_b: (i, j, done) ->
     done([])
-  move_as_k: (done) ->
+  move_as_k: (i, j, done) ->
     done([])
-  move_as_q: (done) ->
+  move_as_q: (i, j, done) ->
     done([])
-  move_as_p: (done) ->
+  move_as_p: (i, j, done) ->
     done([])
 
-  consider_sq: (sq, done) ->
+  consider_sq: (i, j, sq, done) ->
     options = []
     color = sq[0]
     type = sq[1]
     
     if color == undefined or color != @player
-      done([])
-      return
+       done([])
+       return
      else
-      @["move_as_#{type}"] (options) ->
-        console.log color, type, options
+      @["move_as_#{type}"] i, j, (options) ->
+        console.log i, j, color, type, options
         done(options)
         return
 
 
   white_peices: (done) ->
+    i = 0
     for row in @rows
+      i++
+      j = 0
       for sq in row
-        @consider_sq sq, (options) ->
+        j++
+        @consider_sq i, j, sq, (options) ->
 
     done('')
 
