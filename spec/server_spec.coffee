@@ -11,3 +11,7 @@ describe 'server', ->
     SpecHelper.http '/', (code) ->
       expect(code).toEqual(200)
       done()
+  it 'should return all css files', (done) ->
+    SpecHelper.http '/assets/application.css', (text) ->
+      expect(code).toEqual(200)
+      done()

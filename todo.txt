@@ -1,0 +1,5 @@
+chess
+find all possible moves available
+rank each one
+pick best move or random among all the same best rank
+
