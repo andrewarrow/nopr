@@ -6,7 +6,8 @@
     "coffee-script": "~1",
     "mime": "~1.2",
     "mustache": "0.7.2",
-    "url": "~0.7.9"
+    "url": "~0.7.9",
+    "underscore": "1.4.4"
   },
   "devDependencies": {
     "jasmine-node": "~1.0.26"

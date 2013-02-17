@@ -14,3 +14,8 @@ class exports.Board
 
   init: (done) ->
     done()
+
+  find_moves: (done) ->
+    moves = []
+    moves[0] = []
+    done(moves)
