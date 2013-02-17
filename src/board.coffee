@@ -31,9 +31,15 @@ class exports.Board
     else
       done({sq: @rows[i+1][j], i: i+1, j: j})
   look_ne: (i, j, done) ->
-    done({sq: '', i: i+1, j: j})
+    if @player == 'w'
+      done({sq: @rows[i-1][j+1], i: i-1, j: j+1})
+    else
+      done({sq: @rows[i+1][j-1], i: i+1, j: j-1})
   look_nw: (i, j, done) ->
-    done({sq: '', i: i+1, j: j})
+    if @player == 'w'
+      done({sq: @rows[i-1][j-1], i: i-1, j: j-1})
+    else
+      done({sq: @rows[i+1][j+1], i: i+1, j: j+1})
 
   consider_sq: (i, j, sq, done) ->
     options = []
@@ -48,7 +54,6 @@ class exports.Board
         console.log i, j, color, type, options
         done(options)
         return
-
 
   white_peices: (done) ->
     i = 0

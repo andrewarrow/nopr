@@ -7,9 +7,9 @@ class exports.Pawn
       if cord.sq == ''
         options.push [cord.i,cord.j]
       @board.look_ne i, j, (cord) =>
-        if cord.sq != ''
+        if cord.sq != '' and cord.sq != undefined
           options.push [cord.i,cord.j]
         @board.look_nw i, j, (cord) ->
-          if cord.sq != ''
+          if cord.sq != '' and cord.sq != undefined
             options.push [cord.i,cord.j]
           done(options)
