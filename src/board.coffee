@@ -25,17 +25,17 @@ class exports.Board
     @p['p'] = new Pawn(@, true)
     done()
 
-  look_n: (i, j, far, done) ->
+  look_n: (i, j, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j], i: i-1, j: j})
     else
       done({sq: @rows[i+1][j], i: i+1, j: j})
-  look_ne: (i, j, far, done) ->
+  look_ne: (i, j, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j+1], i: i-1, j: j+1})
     else
       done({sq: @rows[i+1][j-1], i: i+1, j: j-1})
-  look_nw: (i, j, far, done) ->
+  look_nw: (i, j, done) ->
     if @player == 'w'
       done({sq: @rows[i-1][j-1], i: i-1, j: j-1})
     else
@@ -52,26 +52,24 @@ class exports.Board
        return
      else
       @p[type].all_moves i, j, (options) ->
-        console.log i, j, color, type, options
+        console.log 'zz', i, j, color, type, options
         done(options)
         return
 
-  createCB: (buffer, limit, fn) ->
-    count = 0
-    return (options) ->
-      buffer.push options
-      if ++count == limit
-        fn()
-
   find_moves: (done) ->
     buffer = []
-    cb = @createCB buffer, 3, (options) ->
-      console.log 'hey', options
-      
-    console.log 1
+    cb = (buffer, fn) ->
+      count = 0
+      return (options) ->
+        buffer.push options
+        if ++count == 3
+          fn()
+
     @consider_sq 0, 0, 'br', cb
     @consider_sq 0, 1, 'bh', cb
-    @consider_sq 0, 2, 'bb', cb
+    @consider_sq 1, 0, 'bp', cb
+    @consider_sq 6, 0, 'wp', cb
+
     console.log 2, buffer
     done([])
 
