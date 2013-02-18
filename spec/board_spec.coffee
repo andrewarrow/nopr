@@ -13,17 +13,17 @@ describe 'server', ->
   it 'should find all moves for current player', (done) ->
       there = false
       board.find_moves (res) ->
-        there = _.contains res, [{fr: 0, fc: 1, tr: 1, tc: 1 }]
+        there = _.contains res, [{fr: 7, fc: 0, tr: 6, tc: 0 }]
       expect(there).toEqual(true)
       done()
+  ###
   it 'should find all moves for other player', (done) ->
       there = false
       board.player = 'b'
       board.find_moves (res) ->
-        there = _.contains res, [{fr: 0, fc: 1, tr: 1, tc: 1 }]
+        there = _.contains res, [{fr: 1, fc: 0, tr: 2, tc: 0 }]
       expect(there).toEqual(true)
       done()
-  ###
   it 'should be in state finished', (done) ->
       done()
   it 'should be in state playing', (done) ->

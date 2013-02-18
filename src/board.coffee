@@ -42,6 +42,7 @@ class exports.Board
       done({sq: @rows[i+1][j+1], i: i+1, j: j+1})
 
   consider_sq: (i, j, sq, done) ->
+    console.log 'a', i, j
     options = []
     color = sq[0]
     type = sq[1]
@@ -55,19 +56,35 @@ class exports.Board
         done(options)
         return
 
-  white_peices: (done) ->
+  createCB: (buffer, limit, fn) ->
+    count = 0
+    return (options) ->
+      buffer.push options
+      if ++count == limit
+        fn()
+
+  find_moves: (done) ->
+    buffer = []
+    cb = @createCB buffer, 3, (options) ->
+      console.log 'hey', options
+      
+    console.log 1
+    @consider_sq 0, 0, 'br', cb
+    @consider_sq 0, 1, 'bh', cb
+    @consider_sq 0, 2, 'bb', cb
+    console.log 2, buffer
+    done([])
+
+
+    ###
+    options = []
     i = 0
     for row in @rows
       j = 0
       for sq in row
-        @consider_sq i, j, sq, (options) ->
+        @consider_sq i, j, sq, (res) ->
+          options.push res
         j++
       i++
 
-    done('')
-
-  find_moves: (done) ->
-    wp = @white_peices (res) ->
-      moves = []
-      moves[0] = []
-      done(moves)
+    done([])
