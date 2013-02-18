@@ -17,12 +17,12 @@ class exports.Board
     @p = {}
 
   init: (done) ->
-    @p['r'] = new Pawn(@, false)
-    @p['h'] = new Pawn(@, false)
-    @p['b'] = new Pawn(@, false)
-    @p['k'] = new Pawn(@, false)
-    @p['q'] = new Pawn(@, false)
-    @p['p'] = new Pawn(@, true)
+    @p['r'] = new Pawn(@)
+    @p['h'] = new Pawn(@)
+    @p['b'] = new Pawn(@)
+    @p['k'] = new Pawn(@)
+    @p['q'] = new Pawn(@)
+    @p['p'] = new Pawn(@)
     done()
 
   look_n: (i, j, done) ->
@@ -42,7 +42,7 @@ class exports.Board
       done({sq: @rows[i+1][j+1], i: i+1, j: j+1})
 
   consider_sq: (i, j, sq, done) ->
-    console.log 'a', i, j
+    #console.log 'a', i, j
     options = []
     color = sq[0]
     type = sq[1]
@@ -52,37 +52,25 @@ class exports.Board
        return
      else
       @p[type].all_moves i, j, (options) ->
-        console.log 'zz', i, j, color, type, options
         done(options)
         return
 
   find_moves: (done) ->
     buffer = []
-    cb = (buffer, fn) ->
+
+    cb1 = () ->
       count = 0
-      return (options) ->
+      (options) ->
         buffer.push options
-        if ++count == 3
-          fn()
+        if ++count == 64
+          done(buffer)
 
-    @consider_sq 0, 0, 'br', cb
-    @consider_sq 0, 1, 'bh', cb
-    @consider_sq 1, 0, 'bp', cb
-    @consider_sq 6, 0, 'wp', cb
-
-    console.log 2, buffer
-    done([])
-
-
-    ###
-    options = []
+    cb2 = cb1()
+      
     i = 0
     for row in @rows
       j = 0
       for sq in row
-        @consider_sq i, j, sq, (res) ->
-          options.push res
+        @consider_sq i, j, sq, cb2
         j++
       i++
-
-    done([])
