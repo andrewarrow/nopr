@@ -42,20 +42,18 @@ class exports.Board
       done({sq: @rows[i+1][j+1], i: i+1, j: j+1})
 
   consider_sq: (i, j, sq, done) ->
-    #console.log 'a', i, j
     options = []
     color = sq[0]
     type = sq[1]
     
     if color == undefined or color != @player
-       done([])
-       return
-     else
+      done([])
+    else
       @p[type].all_moves i, j, (options) ->
         done(options)
-        return
 
   find_moves: (done) ->
+    #there = _.contains res, [{fr: 7, fc: 0, tr: 6, tc: 0 }]
     buffer = []
 
     cb1 = () ->
