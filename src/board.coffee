@@ -55,20 +55,17 @@ class exports.Board
   find_moves: (done) ->
     #there = _.contains res, [{fr: 7, fc: 0, tr: 6, tc: 0 }]
     buffer = []
-
-    cb1 = () ->
-      count = 0
-      (options) ->
-        buffer.push options
-        if ++count == 64
-          done(buffer)
-
-    cb2 = cb1()
       
-    i = 0
-    for row in @rows
-      j = 0
-      for sq in row
-        @consider_sq i, j, sq, cb2
-        j++
-      i++
+    do_loop = (i, j) =>
+      if i == 8
+        done(buffer)
+      else
+        if j == 8
+          do_loop i+1, 0
+        else
+          sq = @rows[i][j]
+          @consider_sq i, j, sq, (options) ->
+            buffer.push options
+            do_loop i, j+1
+
+    do_loop 0, 0
