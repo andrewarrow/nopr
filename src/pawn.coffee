@@ -1,5 +1,3 @@
-{Cords} = require './cords'
-
 class exports.Pawn
   constructor: (@board) ->
     @first_move = true

@@ -21,10 +21,10 @@ class exports.Board
 
   init: (done) ->
     @p['r'] = new Rook(@)
-    @p['h'] = new Pawn(@)
-    @p['b'] = new Pawn(@)
-    @p['k'] = new Pawn(@)
-    @p['q'] = new Pawn(@)
+    @p['h'] = new Rook(@)
+    @p['b'] = new Rook(@)
+    @p['k'] = new Rook(@)
+    @p['q'] = new Rook(@)
     @p['p'] = new Pawn(@)
     done()
 
@@ -52,6 +52,7 @@ class exports.Board
           buffer.push move
         j++
       i++
+    console.log buffer
     buffer
 
   # - - - - - - - - - - - - - - - - - - - - - #
