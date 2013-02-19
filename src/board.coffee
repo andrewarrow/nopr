@@ -1,5 +1,6 @@
 {Pawn}  = require './pawn'
 {Cords} = require './cords'
+{Move}  = require './move'
 
 class exports.Board
   constructor: () ->
@@ -25,6 +26,10 @@ class exports.Board
     @p['q'] = new Pawn(@)
     @p['p'] = new Pawn(@)
     done()
+
+  create_move: (i, j, cords) ->
+    from = new Cords(@rows[i][j], i, j)
+    new Move(from, cords)
 
   look_n: (i, j) ->
     if @player == 'w'

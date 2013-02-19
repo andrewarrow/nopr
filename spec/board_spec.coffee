@@ -13,7 +13,8 @@ describe 'server', ->
   it 'should find all moves for current player', (done) ->
       there = false
       moves = board.find_moves()
-      console.log 'fred', moves
+      for move in moves
+        console.log 'fred', move
       #    if set.fr == 6 and set.fc == 0 and set.tr == 5 and set.tc == 0
       expect(there).toEqual(true)
       done()
