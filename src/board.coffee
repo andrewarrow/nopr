@@ -58,36 +58,42 @@ class exports.Board
   #               LOOK METHODS                #
   # - - - - - - - - - - - - - - - - - - - - - #
 
+  make_cords: (i, j) ->
+    try
+      new Cords(@rows[i][j], i, j, @player)
+    catch error
+      new Cords(undefined, i, j, @player)
+
   look_n: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j], i-1, j, @player)
+      @make_cords i-1, j
     else
-      new Cords(@rows[i+1][j], i+1, j, @player)
+      @make_cords i+1, j
   look_ne: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j+1], i-1, j+1, @player)
+      @make_cords i-1, j+1
     else
-      new Cords(@rows[i+1][j-1], i+1, j-1, @player)
+      @make_cords i+1, j-1
   look_nw: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j-1], i-1, j-1, @player)
+      @make_cords i-1, j-1
     else
-      new Cords(@rows[i+1][j+1], i+1, j+1, @player)
+      @make_cords i+1, j+1
 
   look_s: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i+1][j], i+1, j, @player)
+      @make_cords i+1, j
     else
-      new Cords(@rows[i-1][j], i-1, j, @player)
+      @make_cords i-1, j
 
   look_e: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i][j-1], i, j-1, @player)
+      @make_cords i, j-1
     else
-      new Cords(@rows[i][j+1], i, j+1, @player)
+      @make_cords i, j+1
 
   look_w: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i][j+1], i, j+1, @player)
+      @make_cords i, j+1
     else
-      new Cords(@rows[i][j-1], i, j-1, @player)
+      @make_cords i, j-1
