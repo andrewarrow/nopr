@@ -40,7 +40,6 @@ class exports.Board
     if color == undefined or color != @player
       return []
     else
-      console.log 'fred', type
       @p[type].all_moves i, j
 
   find_moves: (done) ->
@@ -61,34 +60,34 @@ class exports.Board
 
   look_n: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j], i-1, j)
+      new Cords(@rows[i-1][j], i-1, j, @player)
     else
-      new Cords(@rows[i+1][j], i+1, j)
+      new Cords(@rows[i+1][j], i+1, j, @player)
   look_ne: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j+1], i-1, j+1)
+      new Cords(@rows[i-1][j+1], i-1, j+1, @player)
     else
-      new Cords(@rows[i+1][j-1], i+1, j-1)
+      new Cords(@rows[i+1][j-1], i+1, j-1, @player)
   look_nw: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i-1][j-1], i-1, j-1)
+      new Cords(@rows[i-1][j-1], i-1, j-1, @player)
     else
-      new Cords(@rows[i+1][j+1], i+1, j+1)
+      new Cords(@rows[i+1][j+1], i+1, j+1, @player)
 
   look_s: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i+1][j], i+1, j)
+      new Cords(@rows[i+1][j], i+1, j, @player)
     else
-      new Cords(@rows[i-1][j], i-1, j)
+      new Cords(@rows[i-1][j], i-1, j, @player)
 
   look_e: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i][j-1], i, j-1)
+      new Cords(@rows[i][j-1], i, j-1, @player)
     else
-      new Cords(@rows[i][j+1], i, j+1)
+      new Cords(@rows[i][j+1], i, j+1, @player)
 
   look_w: (i, j) ->
     if @player == 'w'
-      new Cords(@rows[i][j+1], i, j+1)
+      new Cords(@rows[i][j+1], i, j+1, @player)
     else
-      new Cords(@rows[i][j-1], i, j-1)
+      new Cords(@rows[i][j-1], i, j-1, @player)

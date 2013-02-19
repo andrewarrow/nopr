@@ -16,11 +16,11 @@ class exports.Pawn
       options.push @board.create_move(i, j, cords)
 
     cords = @board.look_ne i, j
-    if cords.occupied()
+    if cords.enemy()
       options.push @board.create_move(i, j, cords)
 
     cords = @board.look_nw i, j
-    if cords.occupied()
+    if cords.enemy()
       options.push @board.create_move(i, j, cords)
 
     options

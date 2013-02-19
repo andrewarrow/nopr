@@ -3,7 +3,9 @@ class exports.Rook
 
   all_moves: (i, j) ->
     options = []
+    options
 
+    ###
     cords = @board.look_n i, j
     console.log cords
     while cords.ok()
