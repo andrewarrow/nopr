@@ -12,13 +12,11 @@ describe 'server', ->
     done()
   it 'should find all moves for current player', (done) ->
       there = false
-      board.find_moves (res) ->
-        for group in res
-          for set in group
-            if set.fr == 6 and set.fc == 0 and set.tr == 5 and set.tc == 0
-              there = true
-        expect(there).toEqual(true)
-        done()
+      moves = board.find_moves()
+      console.log 'fred', moves
+      #    if set.fr == 6 and set.fc == 0 and set.tr == 5 and set.tc == 0
+      expect(there).toEqual(true)
+      done()
   ###
   it 'should find all moves for other player', (done) ->
       there = false
