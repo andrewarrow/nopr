@@ -1,7 +1,9 @@
-{Pawn}  = require './pawn'
-{Rook}  = require './rook'
-{Cords} = require './cords'
-{Move}  = require './move'
+{Pawn}   = require './pawn'
+{Rook}   = require './rook'
+{Horse}  = require './horse'
+{Bishop} = require './bishop'
+{Cords}  = require './cords'
+{Move}   = require './move'
 
 class exports.Board
   constructor: () ->
@@ -21,15 +23,15 @@ class exports.Board
 
   init: (done) ->
     @p['r'] = new Rook(@)
-    @p['h'] = new Rook(@)
-    @p['b'] = new Rook(@)
+    @p['h'] = new Horse(@)
+    @p['b'] = new Bishop(@)
     @p['k'] = new Rook(@)
     @p['q'] = new Rook(@)
     @p['p'] = new Pawn(@)
     done()
 
   create_move: (i, j, cords) ->
-    from = new Cords(@rows[i][j], i, j)
+    from = new Cords(@rows[i][j], i, j, @player)
     new Move(from, cords)
 
   consider_sq: (i, j, sq) ->
@@ -86,6 +88,16 @@ class exports.Board
       @make_cords i+1, j
     else
       @make_cords i-1, j
+  look_se: (i, j) ->
+    if @player == 'w'
+      @make_cords i+1, j+1
+    else
+      @make_cords i-1, j-1
+  look_sw: (i, j) ->
+    if @player == 'w'
+      @make_cords i+1, j-1
+    else
+      @make_cords i-1, j+1
 
   look_e: (i, j) ->
     if @player == 'w'
