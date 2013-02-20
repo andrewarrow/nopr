@@ -12,10 +12,10 @@ class exports.Board
     @rows = [
       ['br','bh','bb','bk','bq','bb','bh','br'],
       ['bp','bp','bp','bp','bp','bp','bp','bp'],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
-      ['','','','','','','',''],
+      ['  ','  ','  ','  ','  ','  ','  ','  '],
+      ['  ','  ','  ','  ','  ','  ','  ','  '],
+      ['  ','  ','  ','  ','  ','  ','  ','  '],
+      ['  ','  ','  ','  ','  ','  ','  ','  '],
       ['wp','wp','wp','wp','wp','wp','wp','wp'],
       ['wr','wh','wb','wq','wk','wb','wh','wr']]
 
@@ -33,7 +33,7 @@ class exports.Board
     done()
 
   move: (move) ->
-    @rows[move.from.i][move.from.j] = ''
+    @rows[move.from.i][move.from.j] = '  '
     @rows[move.to.i][move.to.j] = move.from.sq
     if @player == 'b'
       @player = 'w'
