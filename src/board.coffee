@@ -35,6 +35,10 @@ class exports.Board
   move: (move) ->
     @rows[move.from.i][move.from.j] = ''
     @rows[move.to.i][move.to.j] = move.from.sq
+    if @player == 'b'
+      @player = 'w'
+    else
+      @player = 'b'
 
   create_move: (i, j, cords) ->
     from = new Cords(@rows[i][j], i, j, @player)
