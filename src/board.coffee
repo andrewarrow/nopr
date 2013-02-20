@@ -2,6 +2,8 @@
 {Rook}   = require './rook'
 {Horse}  = require './horse'
 {Bishop} = require './bishop'
+{King}   = require './king'
+{Queen}  = require './queen'
 {Cords}  = require './cords'
 {Move}   = require './move'
 
@@ -25,8 +27,8 @@ class exports.Board
     @p['r'] = new Rook(@)
     @p['h'] = new Horse(@)
     @p['b'] = new Bishop(@)
-    @p['k'] = new Rook(@)
-    @p['q'] = new Rook(@)
+    @p['k'] = new King(@)
+    @p['q'] = new Queen(@)
     @p['p'] = new Pawn(@)
     done()
 
