@@ -46,7 +46,7 @@ class exports.Board
     else
       @p[type].all_moves i, j
 
-  find_moves: (done) ->
+  find_moves: () ->
     buffer = []
     i = 0
     for row in @rows
@@ -56,7 +56,6 @@ class exports.Board
           buffer.push move
         j++
       i++
-    console.log buffer
     buffer
 
   # - - - - - - - - - - - - - - - - - - - - - #
