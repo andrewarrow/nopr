@@ -32,6 +32,10 @@ class exports.Board
     @p['p'] = new Pawn(@)
     done()
 
+  move: (move) ->
+    @rows[move.from.i][move.from.j] = ''
+    @rows[move.to.i][move.to.j] = move.from.sq
+
   create_move: (i, j, cords) ->
     from = new Cords(@rows[i][j], i, j, @player)
     new Move(from, cords)

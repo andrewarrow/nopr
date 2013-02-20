@@ -14,7 +14,9 @@ board.init () ->
 
     moves = board.find_moves()
     pick = Math.round(Math.random() * moves.length) - 1
-    console.log 'fred', pick
+    board.move(moves[pick])
+
+    console.log board.rows
 
     console.log '\n'
 
