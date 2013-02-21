@@ -13,6 +13,10 @@ describe 'server', ->
   afterEach (done) ->
     done()
   it 'should find all moves for current player', (done) ->
+    moves = board.find_moves()
+    console.log moves
+    done()
+    ###
     cords = new Cords('  ', 5, 0, 'w')
     a_move = board.create_move(6, 0, cords)
     
