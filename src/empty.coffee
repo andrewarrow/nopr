@@ -4,4 +4,4 @@ class exports.Empty
     false
 
   to_s: () ->
-    '__'
+    '  '

@@ -2,9 +2,7 @@
 
 board = new Board()
 board.init () ->
-  console.log '\n'
-  console.log board.rows
-  console.log '\n'
+  board.print_board()
 
   process.stdin.resume()
   process.stdin.setEncoding('ascii')
@@ -18,12 +16,7 @@ board.init () ->
 
     console.log 'player : ' + board.player
     console.log 'moves  : ' + moves.length
-    if moves.length < 10
-      console.log moves
 
     board.move(moves[pick])
-
-    console.log board.rows
-
-    console.log '\n'
+    board.print_board()
 

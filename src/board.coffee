@@ -76,8 +76,10 @@ class exports.Board
     done()
 
   move: (move) ->
-    @rows[move.from.i][move.from.j] = '  '
-    @rows[move.to.i][move.to.j] = move.from.sq
+
+    @rows[move.from.i][move.from.j] = new Empty()
+    @rows[move.to.i][move.to.j] = move.from
+
     if @player == 'b'
       @player = 'w'
     else
