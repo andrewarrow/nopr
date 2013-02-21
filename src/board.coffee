@@ -1,11 +1,12 @@
 {Pawn}   = require './pawn'
 {Rook}   = require './rook'
-{Horse}  = require './horse'
+{Knight} = require './knight'
 {Bishop} = require './bishop'
 {King}   = require './king'
 {Queen}  = require './queen'
 {Cords}  = require './cords'
 {Move}   = require './move'
+{Empty}  = require './empty'
 
 class exports.Board
   constructor: () ->
@@ -19,17 +20,59 @@ class exports.Board
       ['wp','wp','wp','wp','wp','wp','wp','wp'],
       ['wr','wh','wb','wq','wk','wb','wh','wr']]
 
+    @rows = []
     @state = 'playing'
     @player = 'w'
     @p = {}
 
   init: (done) ->
-    @p['r'] = new Rook(@)
-    @p['h'] = new Horse(@)
-    @p['b'] = new Bishop(@)
-    @p['k'] = new King(@)
-    @p['q'] = new Queen(@)
-    @p['p'] = new Pawn(@)
+    row = []
+    row.push new Rook   'b', @
+    row.push new Knight 'b', @
+    row.push new Bishop 'b', @
+    row.push new King   'b', @
+    row.push new Queen  'b', @
+    row.push new Bishop 'b', @
+    row.push new Knight 'b', @
+    row.push new Rook   'b', @
+    @rows.push row
+
+    row = []
+    for i in [1..8]
+      row.push new Pawn 'b', @
+    @rows.push row
+
+    for j in [1..4]
+      row = []
+      for i in [1..8]
+        row.push new Empty()
+      @rows.push row
+
+    row = []
+    for i in [1..8]
+      row.push new Pawn 'w', @
+    @rows.push row
+
+    row = []
+    row.push new Rook   'w', @
+    row.push new Knight 'w', @
+    row.push new Bishop 'w', @
+    row.push new King   'w', @
+    row.push new Queen  'w', @
+    row.push new Bishop 'w', @
+    row.push new Knight 'w', @
+    row.push new Rook   'w', @
+    @rows.push row
+
+    i = 0
+    for row in @rows
+      j = 0
+      for object in row
+        object.i = i
+        object.j = j
+        j++
+      i++
+
     done()
 
   move: (move) ->
@@ -44,23 +87,22 @@ class exports.Board
     from = new Cords(@rows[i][j], i, j, @player)
     new Move(from, cords)
 
-  consider_sq: (i, j, sq) ->
-    options = []
-    color = sq[0]
-    type = sq[1]
-    
-    if color == undefined or color != @player
+  consider: (object) ->
+    if object == null
+      return []
+
+    if object.color != @player
       return []
     else
-      @p[type].all_moves i, j
+      object.all_moves()
 
   find_moves: () ->
     buffer = []
     i = 0
     for row in @rows
       j = 0
-      for sq in row
-        for move in @consider_sq i, j, sq
+      for object in row
+        for move in @consider object
           buffer.push move
         j++
       i++

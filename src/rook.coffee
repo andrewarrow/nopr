@@ -1,5 +1,5 @@
 class exports.Rook
-  constructor: (@board) ->
+  constructor: (@color, @board) ->
 
   all_moves: (i, j) ->
     options = []
