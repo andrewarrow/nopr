@@ -8,40 +8,21 @@ class exports.Pawn extends BasePiece
   all_moves: () ->
     options = []
 
-    north = @north(0)
+    north = @north 1
     if north instanceof Empty
       options.push {from: @, to: north}
 
-    ###
-    if n instanceof Empty
-      n
+    north = @north 2
+    if north instanceof Empty and @first_move
+      options.push {from: @, to: north}
 
-    if n+1 instanceof Empty and @first_move
-      n+1
-
+    ne = @north_east 1
     if ne.enemy()
-      ne
+      options.push {from: @, to: ne}
 
-    if ne.enemy()
-      nw
+    nw = @north_west 1
+    if nw.enemy()
+      options.push {from: @, to: nw}
 
-
-
-    cords = @board.look_n @
-    if cords.blank()
-      options.push @board.create_move(i, j, cords)
-
-    cords = @board.look_n cords.i, j
-    if cords.blank() and @first_move
-      options.push @board.create_move(i, j, cords)
-
-    cords = @board.look_ne i, j
-    if cords.enemy()
-      options.push @board.create_move(i, j, cords)
-
-    cords = @board.look_nw i, j
-    if cords.enemy()
-      options.push @board.create_move(i, j, cords)
-      ###
     options
 
