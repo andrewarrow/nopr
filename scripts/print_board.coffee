@@ -16,6 +16,8 @@ board.init () ->
 
     console.log 'player : ' + board.player
     console.log 'moves  : ' + moves.length
+    for move in moves
+      console.log move.from.to_s(), move.to.to_s(), move.from.i, move.from.j, '   ', move.to.i, move.to.j
 
     board.move(moves[pick])
     board.print_board()

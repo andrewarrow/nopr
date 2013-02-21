@@ -17,11 +17,11 @@ class exports.Pawn extends BasePiece
       options.push {from: @, to: north}
 
     ne = @north_east 1
-    if ne.enemy()
+    if ne.enemy(@color)
       options.push {from: @, to: ne}
 
     nw = @north_west 1
-    if nw.enemy()
+    if nw.enemy(@color)
       options.push {from: @, to: nw}
 
     options
