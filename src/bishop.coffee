@@ -1,3 +1,4 @@
+{BasePiece} = require './base_piece'
 class exports.Bishop extends BasePiece
   constructor: (@color, @board) ->
 

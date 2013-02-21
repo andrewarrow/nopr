@@ -1,3 +1,4 @@
+{BasePiece} = require './base_piece'
 class exports.Queen extends BasePiece
   constructor: (@color, @board) ->
 

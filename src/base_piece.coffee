@@ -1,4 +1,5 @@
 {OutOfBounds} = require './out_of_bounds'
+{Empty} = require './empty'
 
 class exports.BasePiece
 
@@ -52,3 +53,6 @@ class exports.BasePiece
 
   enemy: (my_color) ->
     @color != my_color
+
+  empty_or_enemy: (my_color) ->
+    @enemy(my_color)

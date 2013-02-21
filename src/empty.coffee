@@ -5,3 +5,5 @@ class exports.Empty
 
   to_s: () ->
     '  '
+  empty_or_enemy: (my_color) ->
+    true

@@ -1,3 +1,4 @@
+{BasePiece} = require './base_piece'
 class exports.Rook extends BasePiece
   constructor: (@color, @board) ->
 

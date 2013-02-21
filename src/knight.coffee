@@ -1,3 +1,4 @@
+{BasePiece} = require './base_piece'
 class exports.Knight extends BasePiece
   constructor: (@color, @board) ->
     @first_move = true
