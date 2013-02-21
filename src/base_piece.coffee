@@ -18,27 +18,22 @@ class exports.BasePiece
     return -1 if @color == 'b'
     1
 
-  check: (object) ->
-    return new OutOfBounds() if object == undefined
-    object
+  check: (i, j) ->
+    try
+      object = @board.rows[i][j]
+      return new OutOfBounds() if object == undefined
+      object
+    catch e
+      new OutOfBounds()
 
   north: (plus) ->
-    try
-      @check @board.rows[@i + ( plus * @north_direction() )][@j]
-    catch e
-      new OutOfBounds()
+    @check @i + (plus * @north_direction()), @j
 
   north_east: (plus) ->
-    try
-      @check @board.rows[@i + ( plus * @north_direction() )][@j + (plus * @east_direction())]
-    catch e
-      new OutOfBounds()
+    @check @i + (plus * @north_direction()), @j + (plus * @east_direction())
 
   north_west: (plus) ->
-    try
-      @check @board.rows[@i + ( plus * @north_direction() )][@j + (plus * @west_direction())]
-    catch e
-      new OutOfBounds()
+    @check @i + (plus * @north_direction()), @j + (plus * @west_direction())
 
   enemy: (my_color) ->
     @color != my_color
