@@ -35,5 +35,20 @@ class exports.BasePiece
   north_west: (plus) ->
     @check @i + (plus * @north_direction()), @j + (plus * @west_direction())
 
+  south: (plus) ->
+    @check @i + (plus * @south_direction()), @j
+
+  south_east: (plus) ->
+    @check @i + (plus * @south_direction()), @j + (plus * @east_direction())
+
+  south_west: (plus) ->
+    @check @i + (plus * @south_direction()), @j + (plus * @west_direction())
+
+  east: (plus) ->
+    @check @i + (plus * @east_direction()), @j
+
+  west: (plus) ->
+    @check @i + (plus * @west_direction()), @j
+
   enemy: (my_color) ->
     @color != my_color
