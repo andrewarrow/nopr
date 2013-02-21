@@ -5,3 +5,6 @@ class exports.OutOfBounds
 
   empty_or_enemy: (my_color) ->
     false
+
+  empty: () ->
+    false

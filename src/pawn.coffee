@@ -9,20 +9,17 @@ class exports.Pawn extends BasePiece
     options = []
 
     north = @north 1
-    if north instanceof Empty
+    if north.empty()
       options.push {from: @, to: north}
 
     north = @north 2
-    if north instanceof Empty and @first_move
+    if north.empty() and @first_move
       options.push {from: @, to: north}
 
-    ne = @north_east 1
-    if ne.enemy(@color)
-      options.push {from: @, to: ne}
-
-    nw = @north_west 1
-    if nw.enemy(@color)
-      options.push {from: @, to: nw}
+    for dir in ['north_east', 'north_west']
+      sq = @[dir] 1
+      if sq.enemy(@color)
+        options.push {from: @, to: sq}
 
     options
 

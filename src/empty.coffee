@@ -7,3 +7,6 @@ class exports.Empty
     '  '
   empty_or_enemy: (my_color) ->
     true
+
+  empty: () ->
+    true

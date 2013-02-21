@@ -56,3 +56,6 @@ class exports.BasePiece
 
   empty_or_enemy: (my_color) ->
     @enemy(my_color)
+
+  empty: () ->
+    false
