@@ -26,3 +26,5 @@ class exports.Pawn extends BasePiece
 
     options
 
+  to_s: () ->
+    @color+'p'

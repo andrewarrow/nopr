@@ -14,7 +14,7 @@ describe 'server', ->
     done()
   it 'should find all moves for current player', (done) ->
     moves = board.find_moves()
-    console.log moves
+    board.print_board()
     done()
     ###
     cords = new Cords('  ', 5, 0, 'w')

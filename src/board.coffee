@@ -108,56 +108,16 @@ class exports.Board
       i++
     buffer
 
-  # - - - - - - - - - - - - - - - - - - - - - #
-  #               LOOK METHODS                #
-  # - - - - - - - - - - - - - - - - - - - - - #
+  print_board: () ->
+    console.log ''
+    i = 0
+    for row in @rows
+      j = 0
+      temp = []
+      for object in row
+        temp.push object.to_s()
+        j++
+      console.log temp.join(' , ')
+      i++
+    console.log ''
 
-  make_cords: (i, j) ->
-    try
-      new Cords(@rows[i][j], i, j, @player)
-    catch error
-      new Cords(undefined, i, j, @player)
-
-  look_n: (i, j) ->
-    if @player == 'w'
-      @make_cords i-1, j
-    else
-      @make_cords i+1, j
-  look_ne: (i, j) ->
-    if @player == 'w'
-      @make_cords i-1, j+1
-    else
-      @make_cords i+1, j-1
-  look_nw: (i, j) ->
-    if @player == 'w'
-      @make_cords i-1, j-1
-    else
-      @make_cords i+1, j+1
-
-  look_s: (i, j) ->
-    if @player == 'w'
-      @make_cords i+1, j
-    else
-      @make_cords i-1, j
-  look_se: (i, j) ->
-    if @player == 'w'
-      @make_cords i+1, j+1
-    else
-      @make_cords i-1, j-1
-  look_sw: (i, j) ->
-    if @player == 'w'
-      @make_cords i+1, j-1
-    else
-      @make_cords i-1, j+1
-
-  look_e: (i, j) ->
-    if @player == 'w'
-      @make_cords i, j-1
-    else
-      @make_cords i, j+1
-
-  look_w: (i, j) ->
-    if @player == 'w'
-      @make_cords i, j+1
-    else
-      @make_cords i, j-1
