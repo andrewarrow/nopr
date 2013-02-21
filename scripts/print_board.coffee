@@ -14,6 +14,13 @@ board.init () ->
 
     moves = board.find_moves()
     pick = Math.round(Math.random() * moves.length) - 1
+    pick = 0 if pick < 0
+
+    console.log 'player : ' + board.player
+    console.log 'moves  : ' + moves.length
+    if moves.length < 10
+      console.log moves
+
     board.move(moves[pick])
 
     console.log board.rows
