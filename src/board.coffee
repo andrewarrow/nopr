@@ -66,8 +66,16 @@ class exports.Board
 
   move: (move) ->
 
-    @rows[move.from.i][move.from.j] = new Empty()
+    empty  = new Empty()
+    empty.i = move.from.i
+    empty.j = move.from.j
+    @rows[move.from.i][move.from.j] = empty
     @rows[move.to.i][move.to.j] = move.from
+    move.from.i = move.to.i
+    move.from.j = move.to.j
+
+    if move.from instanceof Pawn
+      move.from.first_move = false
 
     if @player == 'b'
       @player = 'w'

@@ -1,4 +1,4 @@
-class exports.King
+class exports.King extends BasePiece
   constructor: (@color, @board) ->
 
   all_moves: (i, j) ->

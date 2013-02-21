@@ -1,4 +1,4 @@
-class exports.Rook
+class exports.Rook extends BasePiece
   constructor: (@color, @board) ->
 
   all_moves: (i, j) ->

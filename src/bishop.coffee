@@ -1,4 +1,4 @@
-class exports.Bishop
+class exports.Bishop extends BasePiece
   constructor: (@color, @board) ->
 
   all_moves: (i, j) ->

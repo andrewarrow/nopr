@@ -1,4 +1,4 @@
-class exports.Knight
+class exports.Knight extends BasePiece
   constructor: (@color, @board) ->
     @first_move = true
 

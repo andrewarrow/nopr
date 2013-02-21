@@ -1,4 +1,4 @@
-class exports.Queen
+class exports.Queen extends BasePiece
   constructor: (@color, @board) ->
 
   all_moves: (i, j) ->
