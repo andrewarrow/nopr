@@ -70,11 +70,15 @@ class exports.Board
 
   can_take_king: () ->
     king = @find_other_king 1
-    moves = @all_moves 1
+    moves = @find_moves 1
     for move in moves
       if move.to.i == king.i and move.to.j == king.j
         return true
     return false
+
+  toggle_player: () ->
+    colors = {w: 'b', b: 'w'}
+    @player = colors[@player]
 
   move: (move) ->
     e = new Empty()
@@ -93,10 +97,10 @@ class exports.Board
     if @can_take_king 1
       console.log 'yo, u in check'
 
-    @player = 'b'
-    @player = 'w' if @player == 'b'
-  
+    @toggle_player 1
+
     if @can_take_king 1
+      console.log 'fred back', 1
       @rows[move.from.i][move.from.j] = p
       p.i = move.from.i
       p.j = move.from.j
@@ -105,8 +109,7 @@ class exports.Board
       if p instanceof Pawn
         p.first_move = true
 
-      @player = 'b'
-      @player = 'w' if @player == 'b'
+      @toggle_player 1
 
 
   consider: (object) ->
