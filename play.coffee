@@ -1,5 +1,6 @@
 {Board}  = require './src/board'
 
+winner = false
 board = new Board()
 board.init () ->
   board.to_s 1
@@ -10,10 +11,17 @@ board.init () ->
   process.stdin.on 'data', (txt) ->
     console.log '\n'
     moves = board.find_moves 1
-    pick = Math.round(Math.random() * moves.length) - 1
-    pick = 0 if pick < 0
+    if moves.length == 0
+      winner = true
+      console.log '\n'
+      console.log 'WINNER'
+      console.log '\n'
+      process.exit 1
+    else
+      pick = Math.round(Math.random() * moves.length) - 1
+      pick = 0 if pick < 0
 
-    m = moves[pick]
-    board.move m
-    board.to_s 1
+      m = moves[pick]
+      board.move m
+      board.to_s 1
 
