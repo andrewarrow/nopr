@@ -10,7 +10,6 @@ class exports.Move
     "#{@from.to_s()},#{@to.to_s()}"
 
   to_s: () ->
-    console.log '2222', "#{@from.i},#{@from.j} #{@to.i},#{@to.j}"
     "#{@from.i},#{@from.j} #{@to.i},#{@to.j}"
 
   

@@ -63,16 +63,13 @@ class exports.Board
     e.i = move.from.i
     e.j = move.from.j
     p = @rows[move.from.i][move.from.j]
-    console.log 'fred', p.to_s(), p.i,p.j
     p.i = move.to.i
     p.j = move.to.j
-    console.log 'fred', p.to_s(), p.i,p.j
     @rows[move.from.i][move.from.j] = e
     @rows[move.to.i][move.to.j] = p
-    @to_s()
 
     if p instanceof Pawn
-      p.first_time = false
+      p.first_move = false
 
     if @player == 'b'
       @player = 'w'
