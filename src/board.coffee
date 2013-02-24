@@ -14,45 +14,39 @@ class exports.Board
     @state = 'playing'
     @player = 'w'
 
-  init: (done) ->
+  setup_backrow: (color) ->
     row = []
-    row.push new Rook   'b', @
-    row.push new Knight 'b', @
-    row.push new Bishop 'b', @
-    row.push new King   'b', @
-    row.push new Queen  'b', @
-    row.push new Bishop 'b', @
-    row.push new Knight 'b', @
-    row.push new Rook   'b', @
+    row.push new Rook   color, @
+    row.push new Knight color, @
+    row.push new Bishop color, @
+    row.push new King   color, @
+    row.push new Queen  color, @
+    row.push new Bishop color, @
+    row.push new Knight color, @
+    row.push new Rook   color, @
     @rows.push row
 
+  setup_pawns: (color) ->
     row = []
     for i in [1..8]
-      row.push new Pawn 'b', @
+      row.push new Pawn color, @
     @rows.push row
 
-    for j in [1..4]
+  setup_empties: () ->
+    for i in [1..4]
       row = []
-      for i in [1..8]
+      for j in [1..8]
         row.push new Empty()
       @rows.push row
 
-    row = []
-    for i in [1..8]
-      row.push new Pawn 'w', @
-    @rows.push row
+  init: (done) ->
+    @setup_backrow 'b'
+    @setup_pawns 'b'
+    @setup_empties()
+    @setup_pawns 'w'
+    @setup_backrow 'w'
 
-    row = []
-    row.push new Rook   'w', @
-    row.push new Knight 'w', @
-    row.push new Bishop 'w', @
-    row.push new King   'w', @
-    row.push new Queen  'w', @
-    row.push new Bishop 'w', @
-    row.push new Knight 'w', @
-    row.push new Rook   'w', @
-    @rows.push row
-
+    # give each piece it's i,j coords
     i = 0
     for row in @rows
       j = 0
@@ -69,8 +63,16 @@ class exports.Board
     e.i = move.from.i
     e.j = move.from.j
     p = @rows[move.from.i][move.from.j]
+    console.log 'fred', p.to_s(), p.i,p.j
+    p.i = move.to.i
+    p.j = move.to.j
+    console.log 'fred', p.to_s(), p.i,p.j
     @rows[move.from.i][move.from.j] = e
     @rows[move.to.i][move.to.j] = p
+    @to_s()
+
+    if p instanceof Pawn
+      p.first_time = false
 
     if @player == 'b'
       @player = 'w'

@@ -12,6 +12,16 @@ describe 'server', ->
       done()
   afterEach (done) ->
     done()
+  it 'pawn should move 1 space', (done) ->
+    pawn = board.rows[6][0]
+    moves = pawn.all_moves()
+    board.move moves[1]
+    expect(pawn.first_time).toEqual false
+    moves = pawn.all_moves()
+    expect(moves[0].to_s()).toEqual '4,0 3,0'
+    #expect(moves.length).toEqual 1
+    done()
+    ###
   it 'pawn should move 1 or 2 space', (done) ->
     pawn = board.rows[6][0]
     moves = pawn.all_moves()
