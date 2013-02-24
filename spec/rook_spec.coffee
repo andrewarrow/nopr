@@ -15,5 +15,6 @@ describe 'server', ->
   it 'rook should not jump over pieces', (done) ->
     rook = board.rows[7][0]
     moves = rook.all_moves()
-    console.log moves
+    for move in moves
+      console.log move.to_s()
     done()

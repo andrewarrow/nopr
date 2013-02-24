@@ -1,4 +1,6 @@
 {BasePiece} = require './base_piece'
+{Move}      = require './move'
+
 class exports.Rook extends BasePiece
   constructor: (@color, @board) ->
 
@@ -10,13 +12,12 @@ class exports.Rook extends BasePiece
       for distance in [1..7]
         if direction_okay
           sq = @[dir] distance
-          console.log 'fred', sq.to_s()
           if sq.empty()
-            console.log 'fred', 'empty'
-            options.push {from: @, to: sq}
+            options.push new Move(@, sq)
           else if sq.enemy(@color)
-            console.log 'fred', 'enemy'
-            options.push {from: @, to: sq}
+            options.push new Move(@, sq)
+            direction_okay = false
+          else if !sq.enemy(@color)
             direction_okay = false
 
     options
