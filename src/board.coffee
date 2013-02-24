@@ -100,7 +100,6 @@ class exports.Board
     @toggle_player 1
 
     if @can_take_king 1
-      console.log 'fred back', 1
       @rows[move.from.i][move.from.j] = p
       p.i = move.from.i
       p.j = move.from.j

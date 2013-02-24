@@ -22,6 +22,7 @@ board.init () ->
       pick = 0 if pick < 0
 
       m = moves[pick]
+      console.log 'move', board.rows[m.from.i][m.from.j].to_s(), m.to.i, m.to.j
       board.move m
       board.to_s 1
 
