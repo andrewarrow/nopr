@@ -77,7 +77,7 @@ class exports.Board
       @player = 'b'
 
   consider: (object) ->
-    if object == null
+    if object.empty()
       return []
 
     if object.color != @player
