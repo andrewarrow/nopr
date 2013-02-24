@@ -58,6 +58,24 @@ class exports.Board
 
     done()
 
+  find_other_king: () ->
+    color = 'b'
+    color = 'w' if @player == 'b'
+
+    for row in @rows
+      for object in row
+        sq = object.to_s()
+        if sq[0] == color and sq[1] == 'k'
+          return sq
+
+  can_take_king: () ->
+    king = @find_other_king 1
+    moves = @all_moves 1
+    for move in moves
+      if move.to.i == king.i and move.to.j == king.j
+        return true
+    return false
+
   move: (move) ->
     e = new Empty()
     e.i = move.from.i
@@ -66,15 +84,30 @@ class exports.Board
     p.i = move.to.i
     p.j = move.to.j
     @rows[move.from.i][move.from.j] = e
+    taken = @rows[move.to.i][move.to.j]
     @rows[move.to.i][move.to.j] = p
 
     if p instanceof Pawn
       p.first_move = false
 
-    if @player == 'b'
-      @player = 'w'
-    else
+    if @can_take_king 1
+      console.log 'yo, u in check'
+
+    @player = 'b'
+    @player = 'w' if @player == 'b'
+  
+    if @can_take_king 1
+      @rows[move.from.i][move.from.j] = p
+      p.i = move.from.i
+      p.j = move.from.j
+      @rows[move.to.i][move.to.j] = taken
+
+      if p instanceof Pawn
+        p.first_move = true
+
       @player = 'b'
+      @player = 'w' if @player == 'b'
+
 
   consider: (object) ->
     if object.empty()
