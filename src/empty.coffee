@@ -4,7 +4,8 @@ class exports.Empty
     false
 
   to_s: () ->
-    '  '
+    '[]'
+
   empty_or_enemy: (my_color) ->
     true
 

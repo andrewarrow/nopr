@@ -8,3 +8,6 @@ class exports.OutOfBounds
 
   empty: () ->
     false
+
+  to_s: () ->
+    '-'
