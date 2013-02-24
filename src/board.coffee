@@ -59,14 +59,14 @@ class exports.Board
     done()
 
   find_other_king: () ->
-    color = 'b'
-    color = 'w' if @player == 'b'
+    colors = {w: 'b', b: 'w'}
+    color = colors[@player]
 
     for row in @rows
       for object in row
         sq = object.to_s()
         if sq[0] == color and sq[1] == 'k'
-          return sq
+          return object
 
   can_take_king: () ->
     king = @find_other_king 1
