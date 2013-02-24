@@ -8,7 +8,7 @@ board.init () ->
   moves = sq.all_moves 1
   board.move moves[1]
   board.to_s 1
-  sq = board.rows[7][4]
+  sq = board.rows[7][3]
 
   process.stdin.resume()
   process.stdin.setEncoding('ascii')
