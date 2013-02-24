@@ -1,4 +1,6 @@
 {BasePiece} = require './base_piece'
+{Move}      = require './move'
+
 class exports.Queen extends BasePiece
   constructor: (@color, @board) ->
 
@@ -11,9 +13,11 @@ class exports.Queen extends BasePiece
         if direction_okay
           sq = @[dir] distance
           if sq.empty()
-            options.push {from: @, to: sq}
+            options.push new Move(@, sq)
           else if sq.enemy(@color)
-            options.push {from: @, to: sq}
+            options.push new Move(@, sq)
+            direction_okay = false
+          else if !sq.enemy(@color)
             direction_okay = false
 
     options
