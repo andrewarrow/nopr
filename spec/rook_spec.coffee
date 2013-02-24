@@ -24,7 +24,5 @@ describe 'server', ->
 
     rook = board.rows[7][0]
     moves = rook.all_moves()
-    for move in moves
-      console.log 'fred', move.to_s()
     expect(moves.length).toEqual(2)
     done()
