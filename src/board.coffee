@@ -65,17 +65,12 @@ class exports.Board
     done()
 
   move: (move) ->
-
-    empty  = new Empty()
-    empty.i = move.from.i
-    empty.j = move.from.j
-    @rows[move.from.i][move.from.j] = empty
-    @rows[move.to.i][move.to.j] = move.from
-    move.from.i = move.to.i
-    move.from.j = move.to.j
-
-    if move.from instanceof Pawn
-      move.from.first_move = false
+    e = new Empty()
+    e.i = move.from.i
+    e.j = move.from.j
+    p = @rows[move.from.i][move.from.j]
+    @rows[move.from.i][move.from.j] = e
+    @rows[move.to.i][move.to.j] = p
 
     if @player == 'b'
       @player = 'w'
@@ -107,7 +102,7 @@ class exports.Board
       i++
     buffer
 
-  print_board: () ->
+  to_s: () ->
     console.log ''
     i = 0
     for row in @rows

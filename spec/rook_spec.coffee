@@ -15,6 +15,16 @@ describe 'server', ->
   it 'rook should not jump over pieces', (done) ->
     rook = board.rows[7][0]
     moves = rook.all_moves()
+    expect(moves.length).toEqual(0)
+    done()
+  it 'rook should move 1 or 2 spaces', (done) ->
+    pawn = board.rows[6][0]
+    moves = pawn.all_moves()
+    board.move(moves[1])
+
+    rook = board.rows[7][0]
+    moves = rook.all_moves()
     for move in moves
-      console.log move.to_s()
+      console.log 'fred', move.to_s()
+    expect(moves.length).toEqual(2)
     done()
