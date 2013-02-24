@@ -77,4 +77,4 @@ class exports.Knight extends BasePiece
     options
 
   to_s: () ->
-    @color+'h'
+    @color+'n'

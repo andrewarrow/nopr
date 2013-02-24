@@ -76,10 +76,6 @@ class exports.Board
     else
       @player = 'b'
 
-  create_move: (i, j, cords) ->
-    from = new Cords(@rows[i][j], i, j, @player)
-    new Move(from, cords)
-
   consider: (object) ->
     if object == null
       return []
