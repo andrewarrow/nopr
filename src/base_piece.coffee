@@ -54,6 +54,9 @@ class exports.BasePiece
   enemy: (my_color) ->
     @color != my_color
 
+  friend: (my_color) ->
+    @color == my_color
+
   empty_or_enemy: (my_color) ->
     @enemy(my_color)
 

@@ -11,3 +11,6 @@ class exports.OutOfBounds
 
   to_s: () ->
     '-'
+
+  friend: (my_color) ->
+    false

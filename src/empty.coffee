@@ -11,3 +11,6 @@ class exports.Empty
 
   empty: () ->
     true
+
+  friend: (my_color) ->
+    false

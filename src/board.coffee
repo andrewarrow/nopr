@@ -56,6 +56,13 @@ class exports.Board
         j++
       i++
 
+  count_pieces_by_color: (color) ->
+    count = 0
+    for row in @rows
+      for object in row
+        count++ if object.friend(color)
+    count
+
   count_pieces: () ->
     count = 0
     for row in @rows

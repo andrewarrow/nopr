@@ -18,6 +18,7 @@ do_outer_loop = () ->
       m = moves[pick]
       board.move m
       board.to_s 1
+      console.log count, board.count_pieces_by_color('w'), board.count_pieces_by_color('b')
     count++
     if count > 80
       console.log '\n\n\n =================== WINNER ==========================='
