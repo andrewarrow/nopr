@@ -33,6 +33,7 @@ describe 'server', ->
     moves = sq.all_moves()
     board.move moves[0]
     expect(board.rows[6][0].empty()).toEqual(false)
+    expect(board.player).toEqual('w')
     done()
   it 'cannot move into check', (done) ->
     sq = board.rows[7][3]
