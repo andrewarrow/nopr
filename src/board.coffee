@@ -89,6 +89,8 @@ class exports.Board
     piece.j = c.j
 
   move: (move) ->
+    lucky_pawn = undefined
+
     p = @get_piece move.from
     @put_piece new Empty(), move.from
     taken = @get_piece move.to
@@ -96,6 +98,12 @@ class exports.Board
 
     if p instanceof Pawn
       p.first_move = false
+      if @player == 'w' and p.i == 0
+        lucky_pawn = p
+        @put_piece new Queen('w', @), p
+      else if @player == 'b' and p.i == 7
+        lucky_pawn = p
+        @put_piece new Queen('b', @), p
 
     if @can_take_king 1
       console.log 'yo, u in check'
@@ -108,6 +116,8 @@ class exports.Board
 
       if p instanceof Pawn
         p.first_move = true
+        if lucky_pawn != undefined
+          @put_piece lucky_pawn, p
 
       @toggle_player 1
 
