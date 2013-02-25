@@ -9,6 +9,7 @@ describe 'server', ->
   beforeEach (done) ->
     board = new Board()
     board.init 1
+    done()
   afterEach (done) ->
     done()
   it 'rook should not jump over pieces', (done) ->

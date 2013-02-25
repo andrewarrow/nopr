@@ -10,6 +10,7 @@ describe 'server', ->
   beforeEach (done) ->
     board = new Board()
     board.init 1
+    done()
   afterEach (done) ->
     done()
   it 'pawn become a queen', (done) ->
