@@ -80,16 +80,20 @@ class exports.Board
     colors = {w: 'b', b: 'w'}
     @player = colors[@player]
 
+  get_piece: (c) ->
+    @rows[c.i][c.j]
+
+  put_piece: (piece, c) ->
+    @rows[c.i][c.j] = piece
+    piece.i = c.i
+    piece.j = c.j
+
   move: (move) ->
     e = new Empty()
-    e.i = move.from.i
-    e.j = move.from.j
-    p = @rows[move.from.i][move.from.j]
-    p.i = move.to.i
-    p.j = move.to.j
-    @rows[move.from.i][move.from.j] = e
-    taken = @rows[move.to.i][move.to.j]
-    @rows[move.to.i][move.to.j] = p
+    p = @get_piece move.from
+    @put_piece e, move.from
+    taken = @get_piece move.to
+    @put_piece p, move.to
 
     if p instanceof Pawn
       p.first_move = false
