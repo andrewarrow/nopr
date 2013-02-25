@@ -23,10 +23,24 @@ describe 'server', ->
 
     moves = pawn.all_moves 1
     board.move moves[0]
-
-    board.to_s 1
+    expect(board.get_piece(i:0,j:2).to_s()).toEqual 'wq'
     done()
-    ###
+  it 'pawn become a queen and then undo', (done) ->
+    board.put_piece new Empty(), {i:0,j:2}
+    board.put_piece new Empty(), {i:1,j:2}
+
+    pawn = board.get_piece {i:6,j:2}
+    board.put_piece new Empty(), {i:6,j:2}
+    board.put_piece pawn, {i:1,j:2}
+
+    moves = pawn.all_moves 1
+    orig = board.can_take_king
+    board.can_take_king = () ->
+      true
+    board.move moves[0]
+    board.can_take_king = orig
+    expect(board.get_piece(i:1,j:2).to_s()).toEqual 'wp'
+    done()
   it 'pawn should move 1 or 2 space', (done) ->
     pawn = board.rows[6][0]
     moves = pawn.all_moves()
