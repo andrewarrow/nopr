@@ -1,6 +1,19 @@
 {Board}  = require './src/board'
 
+count = 0
+do_loop = () ->
+  for i in [1..100]
+    console.log 'fred', i
+  count++
+  console.log 'fredc', count
+  if count > 100
+    process.exit 1
 
+setInterval do_loop, 100
+
+
+
+###
 while true
 
   board = new Board()
