@@ -22,8 +22,7 @@ describe 'server', ->
     board.put_piece pawn, {i:1,j:2}
 
     moves = pawn.all_moves 1
-
-    console.log 'fred', moves
+    board.move moves[0]
 
     board.to_s 1
     done()
