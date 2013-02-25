@@ -1,6 +1,7 @@
 {SpecHelper} = require './spec_helper'
 {Board} = require './../src/board'
 {Move} = require './../src/move'
+{Empty} = require './../src/empty'
 {Cords} = require './../src/cords'
 _ = require 'underscore'
 
@@ -12,6 +13,21 @@ describe 'server', ->
       done()
   afterEach (done) ->
     done()
+  it 'pawn become a queen', (done) ->
+    board.put_piece new Empty(), {i:0,j:2}
+    board.put_piece new Empty(), {i:1,j:2}
+
+    pawn = board.get_piece {i:6,j:2}
+    board.put_piece new Empty(), {i:6,j:2}
+    board.put_piece pawn, {i:1,j:2}
+
+    moves = pawn.all_moves 1
+
+    console.log 'fred', moves
+
+    board.to_s 1
+    done()
+    ###
   it 'pawn should move 1 or 2 space', (done) ->
     pawn = board.rows[6][0]
     moves = pawn.all_moves()
