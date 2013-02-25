@@ -89,9 +89,8 @@ class exports.Board
     piece.j = c.j
 
   move: (move) ->
-    e = new Empty()
     p = @get_piece move.from
-    @put_piece e, move.from
+    @put_piece new Empty(), move.from
     taken = @get_piece move.to
     @put_piece p, move.to
 
@@ -104,10 +103,8 @@ class exports.Board
     @toggle_player 1
 
     if @can_take_king 1
-      @rows[move.from.i][move.from.j] = p
-      p.i = move.from.i
-      p.j = move.from.j
-      @rows[move.to.i][move.to.j] = taken
+      @put_piece p, move.from
+      @put_piece taken, move.to
 
       if p instanceof Pawn
         p.first_move = true
