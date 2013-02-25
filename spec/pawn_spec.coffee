@@ -9,8 +9,7 @@ describe 'server', ->
   board = undefined
   beforeEach (done) ->
     board = new Board()
-    board.init () ->
-      done()
+    board.init 1
   afterEach (done) ->
     done()
   it 'pawn become a queen', (done) ->

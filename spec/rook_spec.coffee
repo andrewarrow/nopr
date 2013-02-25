@@ -8,8 +8,7 @@ describe 'server', ->
   board = undefined
   beforeEach (done) ->
     board = new Board()
-    board.init () ->
-      done()
+    board.init 1
   afterEach (done) ->
     done()
   it 'rook should not jump over pieces', (done) ->

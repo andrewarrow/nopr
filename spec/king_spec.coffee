@@ -9,8 +9,8 @@ describe 'server', ->
   board = undefined
   beforeEach (done) ->
     board = new Board()
-    board.init () ->
-      done()
+    board.init 1
+    done()
   afterEach (done) ->
     done()
   it 'when in check must move out', (done) ->

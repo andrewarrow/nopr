@@ -39,7 +39,7 @@ class exports.Board
         row.push new Empty()
       @rows.push row
 
-  init: (done) ->
+  init: () ->
     @setup_backrow 'b'
     @setup_pawns 'b'
     @setup_empties()
@@ -56,7 +56,12 @@ class exports.Board
         j++
       i++
 
-    done()
+  count_pieces: () ->
+    count = 0
+    for row in @rows
+      for object in row
+        count++ if object.empty()
+    64 - count
 
   find_other_king: () ->
     colors = {w: 'b', b: 'w'}
@@ -105,8 +110,8 @@ class exports.Board
         lucky_pawn = p
         @put_piece new Queen('b', @), p
 
-    if @can_take_king 1
-      #console.log 'yo, u in check'
+    #if @can_take_king 1
+    #  console.log 'yo, u in check'
 
     @toggle_player 1
 
