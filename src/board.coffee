@@ -106,7 +106,7 @@ class exports.Board
         @put_piece new Queen('b', @), p
 
     if @can_take_king 1
-      console.log 'yo, u in check'
+      #console.log 'yo, u in check'
 
     @toggle_player 1
 
