@@ -28,49 +28,31 @@ class exports.Board
     for i in [1..8]
       for letter in 'abcdefgh'
         @grid[letter+i] = new Empty()
-    console.log @grid
 
   setup_backrow: (color) ->
-    row = []
-    row.push new Rook   color, @
-    row.push new Knight color, @
-    row.push new Bishop color, @
-    row.push new King   color, @
-    row.push new Queen  color, @
-    row.push new Bishop color, @
-    row.push new Knight color, @
-    row.push new Rook   color, @
-    @rows.push row
+    row = '8'
+    row = '1' if color == 'w'
+    @grid['a'+row] = new Rook   color
+    @grid['b'+row] = new Knight color
+    @grid['c'+row] = new Bishop color
+    @grid['d'+row] = new King   color
+    @grid['e'+row] = new Queen  color
+    @grid['f'+row] = new Bishop color
+    @grid['g'+row] = new Knight color
+    @grid['h'+row] = new Rook   color
 
   setup_pawns: (color) ->
-    row = []
-    for i in [1..8]
-      row.push new Pawn color, @
-    @rows.push row
-
-  setup_empties: () ->
-    for i in [1..4]
-      row = []
-      for j in [1..8]
-        row.push new Empty()
-      @rows.push row
+    row = '7'
+    row = '2' if color == 'w'
+    for letter in 'abcdefgh'
+      @grid[letter+row] = new Pawn color
 
   init: () ->
     @setup_backrow 'b'
     @setup_pawns 'b'
-    @setup_empties()
     @setup_pawns 'w'
     @setup_backrow 'w'
-
-    # give each piece it's i,j coords
-    i = 0
-    for row in @rows
-      j = 0
-      for object in row
-        object.i = i
-        object.j = j
-        j++
-      i++
+    console.log 'fred', @grid
 
   count_pieces_by_color: (color) ->
     count = 0
@@ -173,10 +155,10 @@ class exports.Board
 
   to_s: () ->
     console.log ''
-    for i in [1..8]
+    for i in [8..1]
       temp = []
       for letter in 'abcdefgh'
-        temp.push @grid[letter+i].to_s()
+        temp.unshift @grid[letter+i].to_s()
       console.log temp.join(' , ')
     console.log ''
 

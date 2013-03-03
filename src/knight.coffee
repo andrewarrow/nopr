@@ -3,7 +3,6 @@
 
 class exports.Knight extends BasePiece
   constructor: (@color, @board) ->
-    @first_move = true
 
   all_moves: () ->
     options = []
