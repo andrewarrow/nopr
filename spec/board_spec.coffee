@@ -15,6 +15,10 @@ describe 'server', ->
   it 'should have all pieces setup for a new game', (done) ->
     board.to_s()
     done()
+  it 'looks in one direction and returns how far it got', (done) ->
+    result = board.look_from 'e4', 'south'
+    console.log 'fred', result
+    done()
 ###
   it 'should find piece from an', (done) ->
     piece = board.find_by_an 'e4'

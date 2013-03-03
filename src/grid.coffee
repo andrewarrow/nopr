@@ -23,6 +23,12 @@ class exports.Grid
   get_sq: (letter, row) ->
     @data[letter+row]
 
+  look_from: (an, direction) ->
+    letter = an[0]
+    row    = an[1]
+
+    @get_sq direction.next_letter_and_row letter, row
+
   to_s: () ->
     console.log ''
     for row in [@max_row..1]
