@@ -5,12 +5,17 @@
 {King}   = require './king'
 {Queen}  = require './queen'
 {Cords}  = require './cords'
-{Move}   = require './move'
-{Empty}  = require './empty'
+{Move}      = require './move'
+{Empty}     = require './empty'
+{Direction} = require './direction'
 
 class exports.Grid
   constructor: (@max_letter, @max_row) ->
     @data = {}
+    @npov = {}
+    @npov.south = new Direction 0, -1
+    @spov = {}
+    @spov.south = new Direction 0, 1
 
   setup_board: () ->
     for letter in 'abcdefgh'
@@ -23,11 +28,13 @@ class exports.Grid
   get_sq: (letter, row) ->
     @data[letter+row]
 
-  look_from: (an, direction) ->
+  look_from: (an, pov, direction_name) ->
     letter = an[0]
     row    = an[1]
 
-    @get_sq direction.next_letter_and_row letter, row
+    next = @[pov][direction_name].next_letter_and_row letter, row
+    console.log 'fred', next
+    @get_sq next.letter, next.row
 
   to_s: () ->
     console.log ''

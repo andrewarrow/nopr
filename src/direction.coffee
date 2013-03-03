@@ -9,9 +9,8 @@
 {Empty}  = require './empty'
 
 class exports.Direction
-  constructor: (@max_letter, @max_row) ->
-    @data = {}
+  constructor: (@letter_add, @row_add) ->
 
-  @next_letter_and_row: (letter, row) ->
-    {letter: letter, row: row+1}
+  next_letter_and_row: (letter, row) ->
+    {letter: letter, row: parseInt(row)+1}
 
