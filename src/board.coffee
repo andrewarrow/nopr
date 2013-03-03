@@ -14,6 +14,22 @@ class exports.Board
     @state = 'playing'
     @player = 'w'
 
+    # 8
+    # 7
+    # 6
+    # 5
+    # 4
+    # 3
+    # 2
+    # 1
+    #  ABCDEFGH
+
+    @grid = {}
+    for i in [1..8]
+      for letter in 'abcdefgh'
+        @grid[letter+i] = new Empty()
+    console.log @grid
+
   setup_backrow: (color) ->
     row = []
     row.push new Rook   color, @
@@ -157,14 +173,10 @@ class exports.Board
 
   to_s: () ->
     console.log ''
-    i = 0
-    for row in @rows
-      j = 0
+    for i in [1..8]
       temp = []
-      for object in row
-        temp.push object.to_s()
-        j++
+      for letter in 'abcdefgh'
+        temp.push @grid[letter+i].to_s()
       console.log temp.join(' , ')
-      i++
     console.log ''
 

@@ -5,13 +5,15 @@
 _ = require 'underscore'
 
 describe 'server', ->
-  board = undefined
+  an = undefined
   beforeEach (done) ->
     board = new Board()
     board.init 1
+    an = new An(board)
     done()
   afterEach (done) ->
     done()
-  it 'should have all pieces setup for a new game', (done) ->
-    board.to_s()
+  it 'a pawn location should find the right pawn and move it', (done) ->
+    piece = an.find_piece 'e4'
+    expect(piece.to_s()).toEqual('wp')
     done()
