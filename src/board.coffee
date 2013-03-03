@@ -52,7 +52,6 @@ class exports.Board
     @setup_pawns 'b'
     @setup_pawns 'w'
     @setup_backrow 'w'
-    console.log 'fred', @grid
 
   count_pieces_by_color: (color) ->
     count = 0
@@ -159,6 +158,9 @@ class exports.Board
       temp = []
       for letter in 'abcdefgh'
         temp.unshift @grid[letter+i].to_s()
-      console.log temp.join(' , ')
+      console.log i + ' | ' + temp.join(' , ')
+
+    console.log '    ------------------------------------'
+    console.log '    a    b    c    d    e    f    g    h'
     console.log ''
 
