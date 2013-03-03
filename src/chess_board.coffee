@@ -7,52 +7,51 @@
 {Cords}  = require './cords'
 {Move}   = require './move'
 {Empty}  = require './empty'
+{Grid}   = require './grid'
 
-class exports.Board
+class exports.ChessBoard extends Grid
   constructor: () ->
-    @rows = []
+    super('h', 8)
     @state = 'playing'
     @player = 'w'
-
-    # 8
-    # 7
-    # 6
-    # 5
-    # 4
-    # 3
-    # 2
-    # 1
-    #  ABCDEFGH
-
-    @grid = {}
-    for i in [1..8]
-      for letter in 'abcdefgh'
-        @grid[letter+i] = new Empty()
 
   setup_backrow: (color) ->
     row = '8'
     row = '1' if color == 'w'
-    @grid['a'+row] = new Rook   color
-    @grid['b'+row] = new Knight color
-    @grid['c'+row] = new Bishop color
-    @grid['d'+row] = new King   color
-    @grid['e'+row] = new Queen  color
-    @grid['f'+row] = new Bishop color
-    @grid['g'+row] = new Knight color
-    @grid['h'+row] = new Rook   color
+    @set_sq 'a', row, new Rook   color, @
+    @set_sq 'a', row, new Rook   color, @
+    @set_sq 'b', row, new Knight color, @
+    @set_sq 'c' ,row, new Bishop color, @
+    @set_sq 'd', row, new King   color, @
+    @set_sq 'e', row, new Queen  color, @
+    @set_sq 'f', row, new Bishop color, @
+    @set_sq 'g', row, new Knight color, @
+    @set_sq 'h', row, new Rook   color, @
 
   setup_pawns: (color) ->
     row = '7'
     row = '2' if color == 'w'
     for letter in 'abcdefgh'
-      @grid[letter+row] = new Pawn color
+      @set_sq letter, row, new Pawn color, @
 
   init: () ->
+    @setup_board()
     @setup_backrow 'b'
     @setup_pawns 'b'
     @setup_pawns 'w'
     @setup_backrow 'w'
 
+  find_by_an: (an) ->
+    letter = an[0]
+    row    = an[1]
+
+    sq = get_sq letter,row
+    sq.go_south_until_hit()
+
+    # search in the south direction for the first piece u find, must be your pawn
+
+
+ ###
   count_pieces_by_color: (color) ->
     count = 0
     for row in @rows
@@ -151,16 +150,3 @@ class exports.Board
         j++
       i++
     buffer
-
-  to_s: () ->
-    console.log ''
-    for i in [8..1]
-      temp = []
-      for letter in 'abcdefgh'
-        temp.unshift @grid[letter+i].to_s()
-      console.log i + ' | ' + temp.join(' , ')
-
-    console.log '    ------------------------------------'
-    console.log '    a    b    c    d    e    f    g    h'
-    console.log ''
-
