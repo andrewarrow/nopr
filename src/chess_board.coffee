@@ -69,7 +69,8 @@ class exports.ChessBoard extends Grid
       results = Knight.moves_from anp.letter, anp.row
       for result in results
         sq = @get_sq result.letter, result.row
-        console.log 'fred', sq
+        if sq.code == 'N'
+          super sq, anp.letter, anp.row
       # find the black knight on this file
       # or find the black knight on this rank
       # or find the black knight at this file & rank
