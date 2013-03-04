@@ -40,7 +40,7 @@ class exports.Grid
     console.log ''
     for row in [@max_row..1]
       temp = []
-      for letter in 'abcdefgh'
+      for letter in 'hgfedcba'
         thing = @get_sq letter, row
         temp.unshift thing.to_s()
       console.log row + ' | ' + temp.join(' , ')
