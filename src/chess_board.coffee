@@ -18,20 +18,20 @@ class exports.ChessBoard extends Grid
   setup_backrow: (color) ->
     colors = {w: 1, b: 8}
     row = colors[color]
-    @set_sq 'a', row, new Rook   color, @
-    @set_sq 'a', row, new Rook   color, @
-    @set_sq 'b', row, new Knight color, @
-    @set_sq 'c' ,row, new Bishop color, @
-    @set_sq 'd', row, new King   color, @
-    @set_sq 'e', row, new Queen  color, @
-    @set_sq 'f', row, new Bishop color, @
-    @set_sq 'g', row, new Knight color, @
-    @set_sq 'h', row, new Rook   color, @
+    @set_sq 'a', row, new Rook   color
+    @set_sq 'a', row, new Rook   color
+    @set_sq 'b', row, new Knight color
+    @set_sq 'c' ,row, new Bishop color
+    @set_sq 'd', row, new King   color
+    @set_sq 'e', row, new Queen  color
+    @set_sq 'f', row, new Bishop color
+    @set_sq 'g', row, new Knight color
+    @set_sq 'h', row, new Rook   color
 
   setup_pawns: (color) ->
     colors = {w: 2, b: 7}
     for letter in 'abcdefgh'
-      @set_sq letter, colors[color], new Pawn color, @
+      @set_sq letter, colors[color], new Pawn color
 
   init: () ->
     @setup_board()
@@ -67,7 +67,9 @@ class exports.ChessBoard extends Grid
     else if anp.length == 3
       # only one N could move to letter, row, find it
       results = Knight.moves_from anp.letter, anp.row
-      console.log 'fred', results
+      for result in results
+        sq = @get_sq result.letter, result.row
+        console.log 'fred', sq
       # find the black knight on this file
       # or find the black knight on this rank
       # or find the black knight at this file & rank

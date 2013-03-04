@@ -3,6 +3,7 @@
 
 class exports.Knight extends BasePiece
   constructor: (@color, @board) ->
+    @code = 'N'
 
   @moves_from: (letter, row) ->
     letters = 'abcdefgh'
