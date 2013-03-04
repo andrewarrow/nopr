@@ -44,16 +44,15 @@ class exports.ChessBoard extends Grid
   look_from: (an, direction_name) ->
     pov = 'npov'
     pov = 'spov' if @player == 'w'
-    super an, pov, direction_name
+    anp = @parse_an an
+    super anp.letter, anp.row, pov, direction_name
 
-  find_by_an: (an) ->
+  parse_an: (an) ->
     letter = an[0]
-    row    = an[1]
+    row    = parseInt an[1]
+    {letter: letter, row: row}
 
-    sq = get_sq letter,row
-    sq.go_south_until_hit()
-
-    # search in the south direction for the first piece u find, must be your pawn
+  move: (an) ->
 
 
  ###

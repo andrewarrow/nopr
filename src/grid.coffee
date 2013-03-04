@@ -24,10 +24,11 @@ class exports.Grid
   get_sq: (letter, row) ->
     @data[letter+row]
 
-  look_from: (an, pov, direction_name) ->
-    letter = an[0]
-    row    = parseInt an[1]
+  move: (sq, new_letter, new_row) ->
+    @set_sq sq.letter, sq.row, new Empty()
+    @set_sq new_letter, new_row, sq
 
+  look_from: (letter, row, pov, direction_name) ->
     next = @[pov][direction_name].next_letter_and_row letter, row
     sq = @get_sq next.letter, next.row
     while (sq instanceof Empty) and (next.letter != 'j') and (next.row != 8)
