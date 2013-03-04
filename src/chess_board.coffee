@@ -16,8 +16,8 @@ class exports.ChessBoard extends Grid
     @player = 'w'
 
   setup_backrow: (color) ->
-    row = 8
-    row = 1 if color == 'w'
+    colors = {w: 1, b: 8}
+    row = colors[color]
     @set_sq 'a', row, new Rook   color, @
     @set_sq 'a', row, new Rook   color, @
     @set_sq 'b', row, new Knight color, @
@@ -29,10 +29,9 @@ class exports.ChessBoard extends Grid
     @set_sq 'h', row, new Rook   color, @
 
   setup_pawns: (color) ->
-    row = 7
-    row = 2 if color == 'w'
+    colors = {w: 2, b: 7}
     for letter in 'abcdefgh'
-      @set_sq letter, row, new Pawn color, @
+      @set_sq letter, colors[color], new Pawn color, @
 
   init: () ->
     @setup_board()
@@ -42,14 +41,17 @@ class exports.ChessBoard extends Grid
     @setup_backrow 'w'
 
   look_from: (anp, direction_name) ->
-    pov = 'npov'
-    pov = 'spov' if @player == 'w'
-    super anp.letter, anp.row, pov, direction_name
+    colors = {w: 'spov', b: 'npov'}
+    super anp.letter, anp.row, colors[@player], direction_name
 
   parse_an: (an) ->
     letter = an[0]
     row    = parseInt an[1]
     {letter: letter, row: row, length: an.length}
+
+  toggle_player: () ->
+    colors = {w: 'b', b: 'w'}
+    @player = colors[@player]
 
   move: (an) ->
     anp = @parse_an an
@@ -90,10 +92,6 @@ class exports.ChessBoard extends Grid
       if move.to.i == king.i and move.to.j == king.j
         return true
     return false
-
-  toggle_player: () ->
-    colors = {w: 'b', b: 'w'}
-    @player = colors[@player]
 
   get_piece: (c) ->
     @rows[c.i][c.j]

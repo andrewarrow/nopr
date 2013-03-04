@@ -16,7 +16,9 @@ describe 'server', ->
     board.to_s()
     done()
   it 'run a simple an move', (done) ->
-    board.move 'e4'
+    board.move 'd4'
+    board.toggle_player()
+    board.move 'd5'
     board.to_s()
     done()
 ###
