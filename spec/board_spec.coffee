@@ -15,10 +15,11 @@ describe 'server', ->
   it 'should have all pieces setup for a new game', (done) ->
     board.to_s()
     done()
-  it 'run a simple an move', (done) ->
+  it 'run a simple game', (done) ->
+    board.move 'e4'
+    board.move 'd6'
     board.move 'd4'
-    board.toggle_player()
-    board.move 'd5'
+    board.move 'Nf6'
     board.to_s()
     done()
 ###

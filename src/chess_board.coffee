@@ -58,6 +58,7 @@ class exports.ChessBoard extends Grid
     if anp.length == 2
       result = @look_from anp, 'south'
       super result, anp.letter, anp.row
+    @toggle_player()
 
 
  ###
