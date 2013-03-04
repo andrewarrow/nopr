@@ -41,18 +41,21 @@ class exports.ChessBoard extends Grid
     @setup_pawns 'w'
     @setup_backrow 'w'
 
-  look_from: (an, direction_name) ->
+  look_from: (anp, direction_name) ->
     pov = 'npov'
     pov = 'spov' if @player == 'w'
-    anp = @parse_an an
     super anp.letter, anp.row, pov, direction_name
 
   parse_an: (an) ->
     letter = an[0]
     row    = parseInt an[1]
-    {letter: letter, row: row}
+    {letter: letter, row: row, length: an.length}
 
   move: (an) ->
+    anp = @parse_an an
+    if anp.length == 2
+      result = @look_from anp, 'south'
+      super result, anp.letter, anp.row
 
 
  ###

@@ -15,10 +15,6 @@ describe 'server', ->
   it 'should have all pieces setup for a new game', (done) ->
     board.to_s()
     done()
-  it 'looks in one direction and returns how far it got', (done) ->
-    result = board.look_from 'e4', 'south'
-    expect(result.row).toEqual 2
-    done()
   it 'run a simple an move', (done) ->
     board.move 'e4'
     board.to_s()
