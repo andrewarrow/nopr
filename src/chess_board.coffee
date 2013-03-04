@@ -45,9 +45,15 @@ class exports.ChessBoard extends Grid
     super anp.letter, anp.row, colors[@player], direction_name
 
   parse_an: (an) ->
-    letter = an[0]
-    row    = parseInt an[1]
-    {letter: letter, row: row, length: an.length}
+    if an.length == 2
+      letter = an[0]
+      row    = parseInt an[1]
+      {letter: letter, row: row, length: an.length}
+    else if an.length == 3
+      piece  = an[0]
+      letter = an[1]
+      row    = parseInt an[2]
+      {letter: letter, row: row, length: an.length}
 
   toggle_player: () ->
     colors = {w: 'b', b: 'w'}
@@ -58,101 +64,31 @@ class exports.ChessBoard extends Grid
     if anp.length == 2
       result = @look_from anp, 'south'
       super result, anp.letter, anp.row
+    else if anp.length == 3
+      # only one N could move to letter, row, find it
+      results = Knight.moves_from anp.letter, anp.row
+      console.log 'fred', results
+      # find the black knight on this file
+      # or find the black knight on this rank
+      # or find the black knight at this file & rank
+
     @toggle_player()
 
+###
 
- ###
-  count_pieces_by_color: (color) ->
-    count = 0
-    for row in @rows
-      for object in row
-        count++ if object.friend(color)
-    count
+rank = row
+file = letter
 
-  count_pieces: () ->
-    count = 0
-    for row in @rows
-      for object in row
-        count++ if object.empty()
-    64 - count
+If the piece is sufficient to unambiguously determine the origin square, the whole from square is omitted. Otherwise, if two (or more) pieces of the same kind can move to the same square, the piece's initial is followed by (in descending order of preference)
+ file of departure if different
+ rank of departure if the files are the same but the ranks differ
+ the complete origin square coordinate otherwise
 
-  find_other_king: () ->
-    colors = {w: 'b', b: 'w'}
-    color = colors[@player]
+Nbd4
+N1d4     only if the files are the same
+Nb1d4    only if the ranks do not differ
+Nb1xd4
 
-    for row in @rows
-      for object in row
-        sq = object.to_s()
-        if sq[0] == color and sq[1] == 'k'
-          return object
-
-  can_take_king: () ->
-    king = @find_other_king 1
-    moves = @find_moves 1
-    for move in moves
-      if move.to.i == king.i and move.to.j == king.j
-        return true
-    return false
-
-  get_piece: (c) ->
-    @rows[c.i][c.j]
-
-  put_piece: (piece, c) ->
-    @rows[c.i][c.j] = piece
-    piece.i = c.i
-    piece.j = c.j
-
-  move: (move) ->
-    lucky_pawn = undefined
-
-    p = @get_piece move.from
-    @put_piece new Empty(), move.from
-    taken = @get_piece move.to
-    @put_piece p, move.to
-
-    if p instanceof Pawn
-      p.first_move = false
-      if @player == 'w' and p.i == 0
-        lucky_pawn = p
-        @put_piece new Queen('w', @), p
-      else if @player == 'b' and p.i == 7
-        lucky_pawn = p
-        @put_piece new Queen('b', @), p
-
-    #if @can_take_king 1
-    #  console.log 'yo, u in check'
-
-    @toggle_player 1
-
-    if @can_take_king 1
-      @put_piece p, move.from
-      @put_piece taken, move.to
-
-      if p instanceof Pawn
-        p.first_move = true
-        if lucky_pawn != undefined
-          @put_piece lucky_pawn, p
-
-      @toggle_player 1
-
-
-  consider: (object) ->
-    if object.empty()
-      return []
-
-    if object.color != @player
-      return []
-    else
-      object.all_moves()
-
-  find_moves: () ->
-    buffer = []
-    i = 0
-    for row in @rows
-      j = 0
-      for object in row
-        for move in @consider object
-          buffer.push move
-        j++
-      i++
-    buffer
+<SAN move descriptor piece moves>   ::= <Piece symbol>[<from file>|<from rank>|<from square>]['x']<to square>
+<SAN move descriptor pawn captures> ::= <from file>[<from rank>] 'x' <to square>[<promoted to>]
+<SAN move descriptor pawn push>     ::= <to square>[<promoted to>]

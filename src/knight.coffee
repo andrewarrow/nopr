@@ -4,78 +4,28 @@
 class exports.Knight extends BasePiece
   constructor: (@color, @board) ->
 
-  all_moves: () ->
-    options = []
+  @moves_from: (letter, row) ->
+    letters = 'abcdefgh'
+    index = letters.indexOf letter
 
-    #  xxx
-    # x x x
-    # xxxxx
-    # x x x
-    #  xxx    
-    orig_i = @i
-    orig_j = @j
+    # up 2 rows, 1 left, 1 right
+    # down 2 rows, 1 left, 1 right
+    # left 2 letters, 1 up, 1 down
+    # right 2 letters, 1 up, 1 down
 
-    sq = @['north'] 2
-    @i = sq.i
-    sq = @['east'] 1
-    @i = orig_i
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
+    buffer = []
+    buffer.push {letter: letters[index-2], row: row + 1}
+    buffer.push {letter: letters[index-2], row: row - 1}
 
-    sq = @['north'] 2
-    @i = sq.i
-    sq = @['west'] 1
-    @i = orig_i
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
+    buffer.push {letter: letters[index+2], row: row + 1}
+    buffer.push {letter: letters[index+2], row: row - 1}
 
-    sq = @['south'] 2
-    @i = sq.i
-    sq = @['east'] 1
-    @i = orig_i
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
+    buffer.push {letter: letters[index+1], row: row + 2}
+    buffer.push {letter: letters[index-1], row: row + 2}
 
-    sq = @['south'] 2
-    @i = sq.i
-    sq = @['west'] 1
-    @i = orig_i
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
-
-
-      #########
-
-
-    sq = @['west'] 2
-    @j = sq.j
-    sq = @['north'] 1
-    @j = orig_j
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
-
-    sq = @['west'] 2
-    @j = sq.j
-    sq = @['south'] 1
-    @j = orig_j
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
-
-    sq = @['east'] 2
-    @j = sq.j
-    sq = @['north'] 1
-    @j = orig_j
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
-
-    sq = @['east'] 2
-    @j = sq.j
-    sq = @['south'] 1
-    @j = orig_j
-    if sq.empty() or sq.enemy(@color)
-      options.push new Move(@, sq)
-
-    options
+    buffer.push {letter: letters[index+1], row: row - 2}
+    buffer.push {letter: letters[index-1], row: row - 2}
+    buffer
 
   to_s: () ->
     @color+'n'
