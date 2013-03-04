@@ -25,7 +25,13 @@ class exports.Knight extends BasePiece
 
     buffer.push {letter: letters[index+1], row: row - 2}
     buffer.push {letter: letters[index-1], row: row - 2}
-    buffer
+
+    cleaned = []
+    for result in buffer
+      if result.letter != undefined and result.row != undefined
+        cleaned.push result
+
+    cleaned
 
   to_s: () ->
     @color+'n'
