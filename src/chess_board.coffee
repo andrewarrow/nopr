@@ -69,7 +69,7 @@ class exports.ChessBoard extends Grid
       results = @codes[anp.code].moves_from anp.letter, anp.row
       for result in results
         sq = @get_sq result.letter, result.row
-        if sq.code == anp.code
+        if sq.code == anp.code and sq.color == @player
           super sq, anp.letter, anp.row
 
       # find the black knight on this file

@@ -11,6 +11,16 @@ class exports.Bishop extends BasePiece
 
     buffer = []
 
+    # x       x
+    #  x     x
+    #   x   x
+    #    x x
+    #     x
+    #    x x  
+    #   x   x
+    #  x     x
+    # x       x
+
     BasePiece.add_move buffer, letters[index-2], row + 1
 
     buffer
