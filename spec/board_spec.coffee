@@ -20,6 +20,9 @@ describe 'server', ->
     board.move 'd6'
     board.move 'd4'
     board.move 'Nf6'
+    board.move 'Nc3'
+    board.move 'g6'
+    board.move 'Be3'
     board.to_s()
     done()
 ###
