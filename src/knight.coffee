@@ -15,24 +15,20 @@ class exports.Knight extends BasePiece
     # right 2 letters, 1 up, 1 down
 
     buffer = []
-    buffer.push {letter: letters[index-2], row: row + 1}
-    buffer.push {letter: letters[index-2], row: row - 1}
+    BasePiece.add_move buffer, letters[index-2], row + 1
 
-    buffer.push {letter: letters[index+2], row: row + 1}
-    buffer.push {letter: letters[index+2], row: row - 1}
+    BasePiece.add_move buffer, letters[index-2], row + 1
+    BasePiece.add_move buffer, letters[index-2], row - 1
 
-    buffer.push {letter: letters[index+1], row: row + 2}
-    buffer.push {letter: letters[index-1], row: row + 2}
+    BasePiece.add_move buffer, letters[index+2], row + 1
+    BasePiece.add_move buffer, letters[index+2], row - 1
 
-    buffer.push {letter: letters[index+1], row: row - 2}
-    buffer.push {letter: letters[index-1], row: row - 2}
+    BasePiece.add_move buffer, letters[index+1], row + 2
+    BasePiece.add_move buffer, letters[index-1], row + 2
 
-    cleaned = []
-    for result in buffer
-      if result.letter != undefined and result.row != undefined
-        cleaned.push result
-
-    cleaned
+    BasePiece.add_move buffer, letters[index+1], row - 2
+    BasePiece.add_move buffer, letters[index-1], row - 2
+    buffer
 
   to_s: () ->
     @color+'n'

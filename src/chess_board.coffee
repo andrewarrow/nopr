@@ -14,6 +14,7 @@ class exports.ChessBoard extends Grid
     super 'h', 8
     @state = 'playing'
     @player = 'w'
+    @codes = {'N': Knight, 'B': Bishop}
 
   setup_backrow: (color) ->
     colors = {w: 1, b: 8}
@@ -50,10 +51,10 @@ class exports.ChessBoard extends Grid
       row    = parseInt an[1]
       {letter: letter, row: row, length: an.length}
     else if an.length == 3
-      piece  = an[0]
+      code   = an[0]
       letter = an[1]
       row    = parseInt an[2]
-      {letter: letter, row: row, length: an.length}
+      {code: code, letter: letter, row: row, length: an.length}
 
   toggle_player: () ->
     colors = {w: 'b', b: 'w'}
@@ -65,12 +66,12 @@ class exports.ChessBoard extends Grid
       result = @look_from anp, 'south'
       super result, anp.letter, anp.row
     else if anp.length == 3
-      # only one N could move to letter, row, find it
-      results = Knight.moves_from anp.letter, anp.row
+      results = @codes[anp.code].moves_from anp.letter, anp.row
       for result in results
         sq = @get_sq result.letter, result.row
-        if sq.code == 'N'
+        if sq.code == anp.code
           super sq, anp.letter, anp.row
+
       # find the black knight on this file
       # or find the black knight on this rank
       # or find the black knight at this file & rank
