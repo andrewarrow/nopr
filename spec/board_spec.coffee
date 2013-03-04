@@ -17,7 +17,7 @@ describe 'server', ->
     done()
   it 'looks in one direction and returns how far it got', (done) ->
     result = board.look_from 'e4', 'south'
-    console.log 'fred', result
+    expect(result.row).toEqual 2
     done()
 ###
   it 'should find piece from an', (done) ->

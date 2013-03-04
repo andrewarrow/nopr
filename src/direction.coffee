@@ -12,5 +12,5 @@ class exports.Direction
   constructor: (@letter_add, @row_add) ->
 
   next_letter_and_row: (letter, row) ->
-    {letter: letter, row: parseInt(row)+1}
+    {letter: letter, row: parseInt(row)+@row_add}
 

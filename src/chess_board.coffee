@@ -42,7 +42,9 @@ class exports.ChessBoard extends Grid
     @setup_backrow 'w'
 
   look_from: (an, direction_name) ->
-    super an, 'spov', direction_name
+    pov = 'npov'
+    pov = 'spov' if @player == 'w'
+    super an, pov, direction_name
 
   find_by_an: (an) ->
     letter = an[0]

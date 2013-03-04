@@ -1,9 +1,3 @@
-{Pawn}   = require './pawn'
-{Rook}   = require './rook'
-{Knight} = require './knight'
-{Bishop} = require './bishop'
-{King}   = require './king'
-{Queen}  = require './queen'
 {Cords}  = require './cords'
 {Move}      = require './move'
 {Empty}     = require './empty'
@@ -13,9 +7,9 @@ class exports.Grid
   constructor: (@max_letter, @max_row) ->
     @data = {}
     @npov = {}
-    @npov.south = new Direction 0, -1
+    @npov.south = new Direction 0, 1
     @spov = {}
-    @spov.south = new Direction 0, 1
+    @spov.south = new Direction 0, -1
 
   setup_board: () ->
     for letter in 'abcdefgh'
@@ -26,15 +20,21 @@ class exports.Grid
     @data[letter+row] = thing
 
   get_sq: (letter, row) ->
-    @data[letter+row]
+    sq = @data[letter+row]
+    sq.letter = letter
+    sq.row = row
+    sq
 
   look_from: (an, pov, direction_name) ->
     letter = an[0]
     row    = an[1]
 
     next = @[pov][direction_name].next_letter_and_row letter, row
-    console.log 'fred', next
-    @get_sq next.letter, next.row
+    sq = @get_sq next.letter, next.row
+    while (sq instanceof Empty) and (next.letter != 'j') and (next.row != 8)
+      next = @[pov][direction_name].next_letter_and_row next.letter, next.row
+      sq = @get_sq next.letter, next.row
+    sq
 
   to_s: () ->
     console.log ''
