@@ -19,6 +19,10 @@ describe 'server', ->
     result = board.look_from 'e4', 'south'
     expect(result.row).toEqual 2
     done()
+  it 'run a simple an move', (done) ->
+    board.move 'e4'
+    board.to_s()
+    done()
 ###
   it 'should find piece from an', (done) ->
     piece = board.find_by_an 'e4'

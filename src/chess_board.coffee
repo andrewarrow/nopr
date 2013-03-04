@@ -16,8 +16,8 @@ class exports.ChessBoard extends Grid
     @player = 'w'
 
   setup_backrow: (color) ->
-    row = '8'
-    row = '1' if color == 'w'
+    row = 8
+    row = 1 if color == 'w'
     @set_sq 'a', row, new Rook   color, @
     @set_sq 'a', row, new Rook   color, @
     @set_sq 'b', row, new Knight color, @
@@ -29,8 +29,8 @@ class exports.ChessBoard extends Grid
     @set_sq 'h', row, new Rook   color, @
 
   setup_pawns: (color) ->
-    row = '7'
-    row = '2' if color == 'w'
+    row = 7
+    row = 2 if color == 'w'
     for letter in 'abcdefgh'
       @set_sq letter, row, new Pawn color, @
 

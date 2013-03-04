@@ -17,17 +17,16 @@ class exports.Grid
         @set_sq letter, row, new Empty()
 
   set_sq: (letter, row, thing) ->
+    thing.letter = letter
+    thing.row = row
     @data[letter+row] = thing
 
   get_sq: (letter, row) ->
-    sq = @data[letter+row]
-    sq.letter = letter
-    sq.row = row
-    sq
+    @data[letter+row]
 
   look_from: (an, pov, direction_name) ->
     letter = an[0]
-    row    = an[1]
+    row    = parseInt an[1]
 
     next = @[pov][direction_name].next_letter_and_row letter, row
     sq = @get_sq next.letter, next.row
